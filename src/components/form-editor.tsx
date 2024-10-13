@@ -3,6 +3,8 @@ import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { ElementEditor } from "./element-editor";
 import { FormSummary } from "./form-summary";
+import { useFormBuilder } from "./providers/form-builder";
+import { Separator } from "./ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -11,15 +13,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { Separator } from "./ui/separator";
-import { useFormBuilder } from "./providers/form-builder";
 
 type FormElementEditorProps = {
   config: ElementConfig[];
 };
 
 const FormEditor = ({ config }: FormElementEditorProps) => {
-  const { appendElement } = useFormBuilder();
+  const { updateElement } = useFormBuilder();
   const [selectedElement, setSelectedElement] = useState<ElementConfig | null>(
     null,
   );
@@ -44,7 +44,7 @@ const FormEditor = ({ config }: FormElementEditorProps) => {
         <div className="h-full py-3">
           {selectedElement ? (
             <ElementEditor
-              onSave={appendElement}
+              onSave={updateElement}
               element={selectedElement}
               onCancel={goToSummaryView}
             />

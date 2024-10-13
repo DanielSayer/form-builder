@@ -78,8 +78,7 @@ function App() {
             </Form>
           </Droppable>
         </div>
-        <div className="w-1/2 p-3">
-          <h1>Components</h1>
+        <div className="w-1/2 px-3">
           <div className="grid grid-cols-2 gap-4">
             {elements.map((element) => (
               <Draggable key={element.id} id={element.id}>
