@@ -1,5 +1,10 @@
 import { ElementConfig } from "@/lib/element-config";
-import React, { PropsWithChildren, useState } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 type FormBuilderContextValue = {
   formElements: ElementConfig[];
@@ -20,17 +25,24 @@ const useFormBuilder = () => {
 };
 
 const FormBuilderProvider = ({ children }: PropsWithChildren) => {
-  const [formElements, setFormElements] = useState<ElementConfig[]>([]);
+  const [formElements, setFormElements] = useState<ElementConfig[]>(() => {
+    const storedElements = localStorage.getItem("formElements");
+    return storedElements ? JSON.parse(storedElements) : [];
+  });
 
-  const updateElement = (element: ElementConfig) => {
+  const updateElement = useCallback((element: ElementConfig) => {
     setFormElements((curr) =>
       curr.map((x) => (x.id === element.id ? element : x)),
     );
-  };
+  }, []);
 
-  const appendElement = (element: ElementConfig) => {
+  const appendElement = useCallback((element: ElementConfig) => {
     setFormElements((curr) => [...curr, element]);
-  };
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("formElements", JSON.stringify(formElements));
+  }, [formElements]);
 
   return (
     <FormBuilderContext.Provider
