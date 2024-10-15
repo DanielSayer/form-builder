@@ -24,7 +24,7 @@ export const InputElementDisplay = () => {
         <CardDescription>This is a basic input element.</CardDescription>
       </CardHeader>
       <CardContent>
-        <Input />
+        <Input id="input" />
       </CardContent>
     </Card>
   );
@@ -50,18 +50,18 @@ export const InputFormElement = ({ element }: FormElementProps) => {
 
 export const generateInputFormElement = ({ element }: FormElementProps) => {
   return `
-    <FormField
-      name="${element.label}"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>${element.label}</FormLabel>
-          <FormControl>
-            <Input {...field} />
-          </FormControl>
-          ${element.description && `<FormDescription>${element.description}</FormDescription>`}
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+        <FormField
+          name="${element.name}"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>${element.label}</FormLabel>
+              <FormControl>
+                <Input {...field} />
+              </FormControl>
+              ${element.description && `<FormDescription>${element.description}</FormDescription>`}
+              <FormMessage />
+            </FormItem>
+          )}
+        />
   `.trim();
 };

@@ -58,6 +58,7 @@ function App() {
 
     const newConfig: ElementConfig = {
       id: crypto.randomUUID(),
+      name: "",
       element: element.id,
       description: "",
       label: "",
@@ -74,7 +75,7 @@ function App() {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(() =>
-                  console.log(generateForm(formElements)),
+                  navigator.clipboard.writeText(generateForm(formElements)),
                 )}
                 className="h-full"
               >

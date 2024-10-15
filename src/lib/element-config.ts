@@ -3,6 +3,7 @@ export type FormElement = (typeof formElements)[number];
 
 export type ElementConfig = {
   id: string;
+  name: string;
   label: string;
   description: string;
   element: FormElement;
