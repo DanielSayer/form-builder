@@ -10,6 +10,7 @@ type FormBuilderContextValue = {
   formElements: ElementConfig[];
   appendElement: (element: ElementConfig) => void;
   updateElement: (element: ElementConfig) => void;
+  clearElements: () => void;
 };
 
 const FormBuilderContext = React.createContext<FormBuilderContextValue>(
@@ -40,13 +41,17 @@ const FormBuilderProvider = ({ children }: PropsWithChildren) => {
     setFormElements((curr) => [...curr, element]);
   }, []);
 
+  const clearElements = useCallback(() => {
+    setFormElements([]);
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("formElements", JSON.stringify(formElements));
   }, [formElements]);
 
   return (
     <FormBuilderContext.Provider
-      value={{ formElements, updateElement, appendElement }}
+      value={{ formElements, updateElement, appendElement, clearElements }}
       children={children}
     />
   );

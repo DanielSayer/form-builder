@@ -32,7 +32,7 @@ function App() {
   const form = useForm();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const { formElements } = useFormBuilder();
+  const { formElements, clearElements } = useFormBuilder();
   const [selectedElement, setSelectedElement] = useState<ElementConfig | null>(
     null,
   );
@@ -85,7 +85,16 @@ function App() {
                   return <div key={element.id}>{formElement({ element })}</div>;
                 })}
 
-                <Button type="submit">Submit</Button>
+                <div className="mt-3 flex justify-between">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    onClick={clearElements}
+                  >
+                    Clear
+                  </Button>
+                  <Button type="submit">Submit</Button>
+                </div>
               </form>
             </Form>
           </Droppable>
