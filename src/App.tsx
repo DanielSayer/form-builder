@@ -16,6 +16,8 @@ import { useFormBuilder } from "./components/providers/form-builder";
 import { ElementConfig, FormElement } from "./lib/element-config";
 import { useForm } from "react-hook-form";
 import { Form } from "./components/ui/form";
+import { Button } from "./components/ui/button";
+import { generateForm } from "./lib/code-gen";
 
 type FormElementDisplay = {
   id: FormElement;
@@ -70,11 +72,20 @@ function App() {
         <div className="h-100 w-1/2 rounded-lg border border-dashed p-3">
           <Droppable id="root">
             <Form {...form}>
-              {formElements.length === 0 && <EmptyElementPlaceholder />}
-              {formElements.map((element) => {
-                const formElement = templateMappings[element.element];
-                return formElement({ element });
-              })}
+              <form
+                onSubmit={form.handleSubmit(() =>
+                  console.log(generateForm(formElements)),
+                )}
+                className="h-full"
+              >
+                {formElements.length === 0 && <EmptyElementPlaceholder />}
+                {formElements.map((element) => {
+                  const formElement = templateMappings[element.element];
+                  return <div key={element.id}>{formElement({ element })}</div>;
+                })}
+
+                <Button type="submit">Submit</Button>
+              </form>
             </Form>
           </Droppable>
         </div>

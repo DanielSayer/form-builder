@@ -34,7 +34,6 @@ export const InputFormElement = ({ element }: FormElementProps) => {
   return (
     <FormField
       name={element.label}
-      key={element.id}
       render={({ field }) => (
         <FormItem>
           <FormLabel>{element.label}</FormLabel>
@@ -47,4 +46,22 @@ export const InputFormElement = ({ element }: FormElementProps) => {
       )}
     />
   );
+};
+
+export const generateInputFormElement = ({ element }: FormElementProps) => {
+  return `
+    <FormField
+      name="${element.label}"
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>${element.label}</FormLabel>
+          <FormControl>
+            <Input {...field} />
+          </FormControl>
+          ${element.description && `<FormDescription>${element.description}</FormDescription>`}
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  `.trim();
 };
