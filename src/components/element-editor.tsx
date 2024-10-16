@@ -14,6 +14,11 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Checkbox } from "./ui/checkbox";
 import { toCamelCase } from "@/lib/utils";
+import {
+  ElementEditorFormData,
+  elementEditorSchema,
+} from "@/lib/schemas/element-editor";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type ElementEditorProps = {
   onSave: (element: ElementConfig) => void;
@@ -21,23 +26,22 @@ type ElementEditorProps = {
   onCancel: () => void;
 };
 
-type ElementEditorForm = ElementConfig & { useLabelAsName: boolean };
-
 const ElementEditor = ({ element, onSave, onCancel }: ElementEditorProps) => {
-  const form = useForm<ElementEditorForm>({
-    defaultValues: {
-      id: element.id,
-      element: element.element,
-      label: element.label,
-      name: element.label.toLowerCase().replace(" ", ""),
-      description: element.description,
-      useLabelAsName: true,
-    },
+  const form = useForm<ElementEditorFormData>({
+    defaultValues: { ...element, useLabelAsName: element.isUsingLabelAsName },
+    resolver: zodResolver(elementEditorSchema),
   });
 
-  const onSubmit = (data: ElementEditorForm) => {
-    const name = data.useLabelAsName ? toCamelCase(data.label) : data.name;
-    onSave({ ...data, name });
+  const onSubmit = (data: ElementEditorFormData) => {
+    const name = data.useLabelAsName ? toCamelCase(data.label) : data.name!;
+    onSave({
+      id: element.id,
+      name,
+      label: data.label,
+      element: element.element,
+      description: data.description,
+      isUsingLabelAsName: data.useLabelAsName,
+    });
     onCancel();
   };
 
@@ -51,7 +55,25 @@ const ElementEditor = ({ element, onSave, onCancel }: ElementEditorProps) => {
           name="label"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Label</FormLabel>
+              <div className="flex justify-between">
+                <FormLabel>Label</FormLabel>
+                <FormField
+                  name="useLabelAsName"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center gap-2 space-y-0">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <FormLabel className="font-normal">
+                        Use Label as Element Name
+                      </FormLabel>
+                    </FormItem>
+                  )}
+                />
+              </div>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -59,23 +81,6 @@ const ElementEditor = ({ element, onSave, onCancel }: ElementEditorProps) => {
                 The label for your form element.
               </FormDescription>
               <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          name="useLabelAsName"
-          render={({ field }) => (
-            <FormItem className="flex items-center gap-2 space-y-0">
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormLabel className="font-normal">
-                Use Label as Element Name
-              </FormLabel>
             </FormItem>
           )}
         />
@@ -107,7 +112,7 @@ const ElementEditor = ({ element, onSave, onCancel }: ElementEditorProps) => {
                 <Input {...field} />
               </FormControl>
               <FormDescription>
-                The description for your form element.
+                The description for your form element. Like this one!
               </FormDescription>
               <FormMessage />
             </FormItem>

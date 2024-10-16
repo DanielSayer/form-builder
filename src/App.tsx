@@ -5,6 +5,7 @@ import {
   DragStartEvent,
 } from "@dnd-kit/core";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { AddElementDialog } from "./components/add-element-dialog";
 import Draggable from "./components/draggable";
 import { Droppable } from "./components/droppable";
@@ -13,11 +14,14 @@ import { FormEditor } from "./components/form-editor";
 import { InputElementDisplay } from "./components/form-elements/input-element";
 import { templateMappings } from "./components/form-elements/template-mappings";
 import { useFormBuilder } from "./components/providers/form-builder";
-import { ElementConfig, FormElement } from "./lib/element-config";
-import { useForm } from "react-hook-form";
-import { Form } from "./components/ui/form";
 import { Button } from "./components/ui/button";
+import { Form } from "./components/ui/form";
 import { generateForm } from "./lib/code-gen";
+import {
+  defaultElementConfig,
+  ElementConfig,
+  FormElement,
+} from "./lib/element-config";
 
 type FormElementDisplay = {
   id: FormElement;
@@ -56,15 +60,8 @@ function App() {
       return;
     }
 
-    const newConfig: ElementConfig = {
-      id: crypto.randomUUID(),
-      name: "",
-      element: element.id,
-      description: "",
-      label: "",
-    };
-    setSelectedElement(newConfig);
-    toggle();
+    setSelectedElement(defaultElementConfig(element.id));
+    setIsOpen(true);
   };
 
   return (
