@@ -1,3 +1,19 @@
+import { AddElementDialog } from "@/components/add-element-dialog";
+import Draggable from "@/components/draggable";
+import { Droppable } from "@/components/droppable";
+import { EmptyElementPlaceholder } from "@/components/empty-element-placeholder";
+import { FormEditor } from "@/components/form-editor";
+import { InputElementDisplay } from "@/components/form-elements/input-element";
+import { templateMappings } from "@/components/form-elements/template-mappings";
+import { useFormBuilder } from "@/components/providers/form-builder";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+import { generateForm } from "@/lib/code-gen";
+import {
+  ElementConfig,
+  FormElement,
+  defaultElementConfig,
+} from "@/lib/element-config";
 import {
   DndContext,
   DragEndEvent,
@@ -6,22 +22,6 @@ import {
 } from "@dnd-kit/core";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { AddElementDialog } from "./components/add-element-dialog";
-import Draggable from "./components/draggable";
-import { Droppable } from "./components/droppable";
-import { EmptyElementPlaceholder } from "./components/empty-element-placeholder";
-import { FormEditor } from "./components/form-editor";
-import { InputElementDisplay } from "./components/form-elements/input-element";
-import { templateMappings } from "./components/form-elements/template-mappings";
-import { useFormBuilder } from "./components/providers/form-builder";
-import { Button } from "./components/ui/button";
-import { Form } from "./components/ui/form";
-import { generateForm } from "./lib/code-gen";
-import {
-  defaultElementConfig,
-  ElementConfig,
-  FormElement,
-} from "./lib/element-config";
 
 type FormElementDisplay = {
   id: FormElement;
@@ -32,7 +32,7 @@ const elements: FormElementDisplay[] = [
   { id: "input", render: InputElementDisplay },
 ];
 
-function App() {
+export const FormBuilderPage = () => {
   const form = useForm();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -118,6 +118,4 @@ function App() {
       />
     </div>
   );
-}
-
-export default App;
+};
