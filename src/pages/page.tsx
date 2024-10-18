@@ -79,7 +79,9 @@ export const FormBuilderPage = () => {
                 {formElements.length === 0 && <EmptyElementPlaceholder />}
                 {formElements.map((element) => {
                   const formElement = templateMappings[element.element];
-                  return <div key={element.id}>{formElement({ element })}</div>;
+                  return (
+                    <div key={element.id}>{formElement({ ...element })}</div>
+                  );
                 })}
 
                 <div className="mt-3 flex justify-between">

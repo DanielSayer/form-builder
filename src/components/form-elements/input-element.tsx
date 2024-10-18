@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { InputConfig } from "@/lib/config/form-elements/config";
 
 export const InputElementDisplay = () => {
   return (
@@ -30,17 +31,23 @@ export const InputElementDisplay = () => {
   );
 };
 
-export const InputFormElement = ({ element }: FormElementProps) => {
+export const InputFormElement = ({
+  name,
+  label,
+  description,
+  min,
+  type,
+}: FormElementProps & Partial<InputConfig>) => {
   return (
     <FormField
-      name={element.label}
+      name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{element.label}</FormLabel>
+          <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input {...field} />
+            <Input {...field} type={type} min={min} />
           </FormControl>
-          <FormDescription>{element.description}</FormDescription>
+          <FormDescription>{description}</FormDescription>
           <FormMessage />
         </FormItem>
       )}
@@ -48,17 +55,21 @@ export const InputFormElement = ({ element }: FormElementProps) => {
   );
 };
 
-export const generateInputFormElement = ({ element }: FormElementProps) => {
+export const generateInputFormElement = ({
+  name,
+  label,
+  description,
+}: FormElementProps) => {
   return `
         <FormField
-          name="${element.name}"
+          name="${name}"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>${element.label}</FormLabel>
+              <FormLabel>${label}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              ${element.description && `<FormDescription>${element.description}</FormDescription>`}
+              ${description && `<FormDescription>${description}</FormDescription>`}
               <FormMessage />
             </FormItem>
           )}
