@@ -1,4 +1,5 @@
 import { ElementConfig } from "@/lib/element-config";
+import { getElements, saveElements } from "@/server/elements/elements";
 import React, {
   PropsWithChildren,
   useCallback,
@@ -26,10 +27,9 @@ const useFormBuilder = () => {
 };
 
 const FormBuilderProvider = ({ children }: PropsWithChildren) => {
-  const [formElements, setFormElements] = useState<ElementConfig[]>(() => {
-    const storedElements = localStorage.getItem("formElements");
-    return storedElements ? JSON.parse(storedElements) : [];
-  });
+  const [formElements, setFormElements] = useState<ElementConfig[]>(() =>
+    getElements(),
+  );
 
   const updateElement = useCallback((element: ElementConfig) => {
     setFormElements((curr) =>
@@ -46,7 +46,7 @@ const FormBuilderProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("formElements", JSON.stringify(formElements));
+    saveElements(formElements);
   }, [formElements]);
 
   return (
