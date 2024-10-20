@@ -1,5 +1,15 @@
 import { ElementConfig } from "@/lib/element-config";
+import {
+  ElementEditorFormData,
+  elementEditorSchema,
+} from "@/lib/schemas/element-editor";
+import { toCamelCase } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { Button, buttonVariants } from "./ui/button";
+import { Checkbox } from "./ui/checkbox";
 import {
   Form,
   FormControl,
@@ -10,22 +20,12 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import { Button, buttonVariants } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Checkbox } from "./ui/checkbox";
-import { toCamelCase } from "@/lib/utils";
-import {
-  ElementEditorFormData,
-  elementEditorSchema,
-} from "@/lib/schemas/element-editor";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 
 type ElementEditorProps = {
-  onSave: (element: ElementConfig) => void;
   element: ElementConfig;
   onCancel: () => void;
+  onSave: (element: ElementConfig) => void;
 };
 
 const ElementEditor = ({ element, onSave, onCancel }: ElementEditorProps) => {
@@ -120,13 +120,15 @@ const ElementEditor = ({ element, onSave, onCancel }: ElementEditorProps) => {
             </FormItem>
           )}
         />
-        <Link
-          to={`/customise/${element.id}`}
-          className={buttonVariants({ variant: "ghost" })}
-        >
-          I want more fields
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Link>
+        {element.id && (
+          <Link
+            to={`/customise/${element.id}`}
+            className={buttonVariants({ variant: "ghost" })}
+          >
+            I want more fields
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        )}
         <Separator />
         <div className="flex justify-between">
           <Button type="button" onClick={onCancel} variant="secondary">

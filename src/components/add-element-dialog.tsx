@@ -24,8 +24,11 @@ const AddElementDialog = ({
 }: AddElementDialogProps) => {
   const { appendElement } = useFormBuilder();
 
-  const onSave = (element: ElementConfig) => {
-    appendElement(element);
+  const onCreate = (element: ElementConfig) => {
+    if (element.id) {
+      throw new Error("Element already exists");
+    }
+    appendElement({ ...element, id: crypto.randomUUID() });
     toggle();
   };
 
@@ -56,7 +59,7 @@ const AddElementDialog = ({
           </DialogDescription>
         </DialogHeader>
         <ElementEditor
-          onSave={onSave}
+          onSave={onCreate}
           onCancel={onCancel}
           element={selectedElement}
         />
