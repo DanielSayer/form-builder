@@ -13,7 +13,7 @@ export const CheckboxFormElement = ({
       render={({ field }) => (
         <FormItem className="flex flex-row items-start space-x-3 space-y-0">
           <FormControl>
-            <Checkbox {...field} />
+            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
           </FormControl>
           <FormLabel>{label}</FormLabel>
         </FormItem>

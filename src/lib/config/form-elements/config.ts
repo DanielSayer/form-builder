@@ -1,5 +1,5 @@
-type ConfigBase = {
-  name: string;
+type ConfigBase<T> = {
+  name: keyof T;
 };
 
 export type InputConfig = {
@@ -23,4 +23,4 @@ export type SelectConfig = {
 
 type Config = InputConfig | CheckboxConfig | SelectConfig;
 
-export type FormElementDetailedConfig = ConfigBase & Config;
+export type FormElementDetailedConfig<T> = ConfigBase<T> & Config;

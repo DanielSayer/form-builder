@@ -1,4 +1,4 @@
-export const formElements = ["input", "select", "checkbox"] as const;
+const formElements = ["input", "select", "checkbox"] as const;
 export type FormElement = (typeof formElements)[number];
 
 export type ElementConfig = {
@@ -6,8 +6,9 @@ export type ElementConfig = {
   name: string;
   isUsingLabelAsName: boolean;
   label: string;
-  description: string | undefined;
+  description: string;
   element: FormElement;
+  extraConfig?: object;
 };
 
 export const defaultElementConfig = (element: FormElement): ElementConfig => {
@@ -16,7 +17,7 @@ export const defaultElementConfig = (element: FormElement): ElementConfig => {
     name: "",
     isUsingLabelAsName: true,
     label: "",
-    description: undefined,
+    description: "",
     element,
   };
 };

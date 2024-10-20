@@ -1,29 +1,36 @@
 import { templateMappings } from "@/components/form-elements/template-mappings";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { inputConfig } from "@/lib/config/form-elements/input";
-import { useForm } from "react-hook-form";
-import { ElementEditorStandardFields } from "./element-editor-standard-field";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { getElement } from "@/server/elements/elements";
 import { ArrowLeft } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
+import { ElementEditorStandardFields } from "./element-editor-standard-field";
+import useDetailedConfigForm from "./useDetailedConfigForm";
 
 export const CustomisePage = () => {
-  const form = useForm();
+  const { elementId } = useParams();
+  const element = getElement(elementId);
+  const form = useDetailedConfigForm(element);
   return (
     <MaxWidthWrapper className="py-10">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl tracking-tight">Want more fields?</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">
+          You need more fields?
+        </h1>
         <Link to="/" className={buttonVariants({ variant: "ghost" })}>
           <ArrowLeft className="me-2 h-4 w-4" />
           Back
         </Link>
       </div>
-      <h3>Customise the form by adding more fields.</h3>
+      <h3 className="tracking-tight text-muted-foreground">
+        Don&apos;t worry, we got you!
+      </h3>
       <Separator className="my-4" />
       <Form {...form}>
-        <form>
+        <form onSubmit={form.handleSubmit((a) => console.log(a))}>
           <h3 className="mb-3 text-xl font-semibold">Standard fields</h3>
 
           <ElementEditorStandardFields />
@@ -31,11 +38,15 @@ export const CustomisePage = () => {
           <h3 className="mb-3 text-xl font-semibold">Extra fields</h3>
 
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {inputConfig.map((config) => {
-              const element = templateMappings[config.configFor];
+            {inputConfig.map(({ name, configFor, ...config }) => {
+              const element = templateMappings[configFor];
               return (
-                <div key={config.name} className="grid items-center">
-                  {element({ label: config.name, ...config })}
+                <div key={name} className="grid items-center">
+                  {element({
+                    label: name,
+                    name: `extraConfig.${name}`,
+                    ...config,
+                  })}
                 </div>
               );
             })}
