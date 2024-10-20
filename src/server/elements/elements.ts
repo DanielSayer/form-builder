@@ -21,3 +21,15 @@ export const getElement = (elementId: string | undefined) => {
 export const saveElements = (elements: ElementConfig[]) => {
   localStorage.setItem(FORM_ELEMENTS_KEY, JSON.stringify(elements));
 };
+
+export const updateElement = (element: ElementConfig) => {
+  const elements = getElements();
+  const index = elements.findIndex((x) => x.id === element.id);
+
+  if (index === -1) {
+    throw new Error(`Element with id ${element.id} not found`);
+  }
+
+  elements[index] = element;
+  saveElements(elements);
+};

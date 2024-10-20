@@ -21,6 +21,31 @@ const configureDefaultValues = (
   return currentConfig;
 };
 
+export const stripExtraConfig = (
+  element: FormElement,
+  extraConfig: object | undefined,
+) => {
+  if (!extraConfig) {
+    return {};
+  }
+
+  const strippedConfig = { ...extraConfig } as Record<string, unknown>;
+  const defaults = detailedConfigDefaultMappings[element] as Record<
+    string,
+    unknown
+  >;
+
+  Object.keys(extraConfig).forEach((key) => {
+    if (!(key in defaults)) {
+      delete strippedConfig[key];
+    } else if (strippedConfig[key] === defaults[key]) {
+      delete strippedConfig[key];
+    }
+  });
+
+  return strippedConfig;
+};
+
 const useDetailedConfigForm = ({
   element,
   extraConfig,

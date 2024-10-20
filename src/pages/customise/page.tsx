@@ -4,16 +4,31 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { inputConfig } from "@/lib/config/form-elements/input";
-import { getElement } from "@/server/elements/elements";
+import { getElement, updateElement } from "@/server/elements/elements";
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { ElementEditorStandardFields } from "./element-editor-standard-field";
-import useDetailedConfigForm from "./useDetailedConfigForm";
+import useDetailedConfigForm, {
+  stripExtraConfig,
+} from "./useDetailedConfigForm";
+import { ElementConfig } from "@/lib/element-config";
+import { toast } from "sonner";
 
 export const CustomisePage = () => {
   const { elementId } = useParams();
   const element = getElement(elementId);
   const form = useDetailedConfigForm(element);
+
+  const onSubmit = (data: ElementConfig) => {
+    const newExtraConfig = stripExtraConfig(element.element, data.extraConfig);
+    updateElement({ ...data, extraConfig: newExtraConfig });
+    toast.success("Element updated!");
+  };
+
+  const onCancel = () => {
+    form.reset();
+  };
+
   return (
     <MaxWidthWrapper className="py-10">
       <div className="flex items-center justify-between">
@@ -30,7 +45,7 @@ export const CustomisePage = () => {
       </h3>
       <Separator className="my-4" />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit((a) => console.log(a))}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <h3 className="mb-3 text-xl font-semibold">Standard fields</h3>
 
           <ElementEditorStandardFields />
@@ -45,6 +60,7 @@ export const CustomisePage = () => {
                   {element({
                     label: name,
                     name: `extraConfig.${name}`,
+                    description: "",
                     ...config,
                   })}
                 </div>
@@ -53,7 +69,7 @@ export const CustomisePage = () => {
           </div>
           <Separator className="my-4" />
           <div className="flex justify-end gap-4">
-            <Button type="button" variant="secondary">
+            <Button type="button" variant="secondary" onClick={onCancel}>
               Cancel
             </Button>
             <Button type="submit">Save</Button>

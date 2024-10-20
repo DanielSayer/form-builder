@@ -25,5 +25,6 @@ export const defaultElementConfig = (element: FormElement): ElementConfig => {
 export type FormElementProps = {
   name: string;
   label: string;
-  description?: string;
+  description: string;
+  extraConfig?: object;
 };

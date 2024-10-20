@@ -2,6 +2,7 @@ import { generatorMappings } from "@/components/form-elements/template-mappings"
 import { ElementConfig } from "./element-config";
 
 export const generateForm = (config: ElementConfig[]) => {
+  console.log(config);
   return generateComponentCode(config);
 };
 
@@ -23,7 +24,14 @@ const generateJsx = (config: ElementConfig[]) => {
       <form>
         ${config
           .map((element) =>
-            removeBlankLines(generatorMappings[element.element]({ element })),
+            removeBlankLines(
+              generatorMappings[element.element]({
+                name: element.name,
+                label: element.label,
+                description: element.description,
+                extraConfig: element.extraConfig,
+              }),
+            ),
           )
           .join("\n\t")}
       </form>
@@ -36,4 +44,17 @@ const removeBlankLines = (code: string) => {
     .split("\n")
     .filter((line) => line.trim())
     .join("\n");
+};
+
+export const spreadExtraConfig = (extraConfig: object | undefined) => {
+  if (!extraConfig) {
+    return "";
+  }
+
+  const mappedConfig = extraConfig as Record<string, unknown>;
+  return `
+    ${Object.keys(mappedConfig)
+      .map((key) => `${key}={${mappedConfig[key]}} `)
+      .join("")}
+`.trim();
 };

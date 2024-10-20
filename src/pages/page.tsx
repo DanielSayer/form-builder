@@ -80,7 +80,14 @@ export const FormBuilderPage = () => {
                 {formElements.map((element) => {
                   const formElement = templateMappings[element.element];
                   return (
-                    <div key={element.id}>{formElement({ ...element })}</div>
+                    <div key={element.id}>
+                      {formElement({
+                        name: element.name,
+                        label: element.label,
+                        description: element.description,
+                        extraConfig: element.extraConfig,
+                      })}
+                    </div>
                   );
                 })}
 

@@ -16,6 +16,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { InputConfig } from "@/lib/config/form-elements/config";
+import { spreadExtraConfig } from "@/lib/code-gen";
 
 export const InputElementDisplay = () => {
   return (
@@ -31,13 +32,13 @@ export const InputElementDisplay = () => {
   );
 };
 
-export const InputFormElement = ({
+export function InputFormElement({
   name,
   label,
   description,
   min,
   type,
-}: FormElementProps & Partial<InputConfig>) => {
+}: FormElementProps & Partial<InputConfig>) {
   return (
     <FormField
       name={name}
@@ -53,13 +54,14 @@ export const InputFormElement = ({
       )}
     />
   );
-};
+}
 
-export const generateInputFormElement = ({
+export function generateInputFormElement({
   name,
   label,
   description,
-}: FormElementProps) => {
+  extraConfig,
+}: FormElementProps) {
   return `
         <FormField
           name="${name}"
@@ -67,12 +69,12 @@ export const generateInputFormElement = ({
             <FormItem>
               <FormLabel>${label}</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} ${spreadExtraConfig(extraConfig)}/>
               </FormControl>
-              ${description && `<FormDescription>${description}</FormDescription>`}
+              ${description ? `<FormDescription>${description}</FormDescription>` : ``}
               <FormMessage />
             </FormItem>
           )}
         />
   `.trim();
-};
+}
