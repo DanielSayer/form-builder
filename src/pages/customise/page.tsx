@@ -1,18 +1,20 @@
-import { templateMappings } from "@/components/form-elements/template-mappings";
+import {
+  extraConfigMappings,
+  templateMappings,
+} from "@/components/form-elements/template-mappings";
 import { MaxWidthWrapper } from "@/components/max-width-wrapper";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
-import { inputConfig } from "@/lib/config/form-elements/input";
+import { ElementConfig } from "@/lib/element-config";
 import { getElement, updateElement } from "@/server/elements/elements";
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import { ElementEditorStandardFields } from "./element-editor-standard-field";
 import useDetailedConfigForm, {
   stripExtraConfig,
 } from "./useDetailedConfigForm";
-import { ElementConfig } from "@/lib/element-config";
-import { toast } from "sonner";
 
 export const CustomisePage = () => {
   const { elementId } = useParams();
@@ -53,19 +55,21 @@ export const CustomisePage = () => {
           <h3 className="mb-3 text-xl font-semibold">Extra fields</h3>
 
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {inputConfig.map(({ name, configFor, ...config }) => {
-              const element = templateMappings[configFor];
-              return (
-                <div key={name} className="grid items-center">
-                  {element({
-                    label: name,
-                    name: `extraConfig.${name}`,
-                    description: "",
-                    ...config,
-                  })}
-                </div>
-              );
-            })}
+            {extraConfigMappings[element.element].map(
+              ({ name, configFor, ...config }) => {
+                const element = templateMappings[configFor];
+                return (
+                  <div key={name} className="grid items-center">
+                    {element({
+                      label: name,
+                      name: `extraConfig.${name}`,
+                      description: "",
+                      ...config,
+                    })}
+                  </div>
+                );
+              },
+            )}
           </div>
           <Separator className="my-4" />
           <div className="flex justify-end gap-4">
