@@ -20,9 +20,10 @@ export const SelectFormElement = ({
   name,
   label,
   description,
-  options,
-  placeholder,
-}: FormElementProps & Partial<SelectConfig>) => {
+  extraConfig,
+}: FormElementProps) => {
+  const typedConfig = extraConfig as Partial<SelectConfig>;
+
   return (
     <FormField
       name={name}
@@ -32,11 +33,11 @@ export const SelectFormElement = ({
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={placeholder} />
+                <SelectValue placeholder={typedConfig.placeholder} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {options?.map((option) => (
+              {typedConfig.options?.map((option) => (
                 <SelectItem value={option.value} key={option.value}>
                   {option.label}
                 </SelectItem>

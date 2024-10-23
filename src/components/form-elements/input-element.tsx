@@ -15,8 +15,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { InputConfig } from "@/lib/config/form-elements/config";
 import { spreadExtraConfig } from "@/lib/code-gen";
+import { InputExtraFieldsConfig } from "@/lib/config/form-elements/input";
 
 export const InputElementDisplay = () => {
   return (
@@ -36,17 +36,29 @@ export function InputFormElement({
   name,
   label,
   description,
-  min,
-  type,
-}: FormElementProps & Partial<InputConfig>) {
+  extraConfig,
+}: FormElementProps) {
+  const typedConfig = extraConfig as InputExtraFieldsConfig;
+
   return (
     <FormField
       name={name}
-      render={({ field }) => (
+      render={({ field: { onChange, ...field } }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input {...field} type={type} min={min} />
+            <Input
+              onChange={(e) => {
+                const val =
+                  typedConfig.type === "number"
+                    ? e.target.valueAsNumber
+                    : e.target.value;
+
+                onChange(val);
+              }}
+              {...field}
+              {...typedConfig}
+            />
           </FormControl>
           <FormDescription>{description}</FormDescription>
           <FormMessage />
@@ -69,7 +81,7 @@ export function generateInputFormElement({
             <FormItem>
               <FormLabel>${label}</FormLabel>
               <FormControl>
-                <Input {...field} ${spreadExtraConfig(extraConfig)}/>
+                <Input {...field} ${spreadExtraConfig(extraConfig)} />
               </FormControl>
               ${description ? `<FormDescription>${description}</FormDescription>` : ``}
               <FormMessage />

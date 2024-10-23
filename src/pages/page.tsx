@@ -1,14 +1,15 @@
 import { AddElementDialog } from "@/components/add-element-dialog";
 import Draggable from "@/components/draggable";
-import { Droppable } from "@/components/droppable";
-import { EmptyElementPlaceholder } from "@/components/empty-element-placeholder";
 import { FormEditor } from "@/components/form-editor";
 import { InputElementDisplay } from "@/components/form-elements/input-element";
-import { templateMappings } from "@/components/form-elements/template-mappings";
 import { useFormBuilder } from "@/components/providers/form-builder";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import { generateForm } from "@/lib/code-gen";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   ElementConfig,
   FormElement,
@@ -21,7 +22,7 @@ import {
   DragStartEvent,
 } from "@dnd-kit/core";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { FormBuilder } from "./form-builder";
 
 type FormElementDisplay = {
   id: FormElement;
@@ -33,10 +34,9 @@ const elements: FormElementDisplay[] = [
 ];
 
 export const FormBuilderPage = () => {
-  const form = useForm();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const { formElements, clearElements } = useFormBuilder();
+  const { formElements } = useFormBuilder();
   const [selectedElement, setSelectedElement] = useState<ElementConfig | null>(
     null,
   );
@@ -65,53 +65,28 @@ export const FormBuilderPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full p-3">
+    <div className="min-h-screen p-4">
       <DndContext onDragStart={onDragStart} onDragEnd={onDragEnd}>
-        <div className="h-100 w-1/2 rounded-lg border border-dashed p-3">
-          <Droppable id="root">
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(() =>
-                  navigator.clipboard.writeText(generateForm(formElements)),
-                )}
-                className="h-full"
-              >
-                {formElements.length === 0 && <EmptyElementPlaceholder />}
-                {formElements.map((element) => {
-                  const formElement = templateMappings[element.element];
-                  return (
-                    <div key={element.id}>
-                      {formElement({
-                        name: element.name,
-                        label: element.label,
-                        description: element.description,
-                        extraConfig: element.extraConfig,
-                      })}
-                    </div>
-                  );
-                })}
-
-                <div className="mt-3 flex justify-between">
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={clearElements}
-                  >
-                    Clear
-                  </Button>
-                  <Button type="submit">Submit</Button>
-                </div>
-              </form>
-            </Form>
-          </Droppable>
-        </div>
-        <div className="w-1/2 px-3">
-          <div className="grid grid-cols-2 gap-4">
-            {elements.map((element) => (
-              <Draggable key={element.id} id={element.id}>
-                {element.render()}
-              </Draggable>
-            ))}
+        <div className="grid grid-cols-2 gap-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Form Builder</CardTitle>
+              <CardDescription>
+                Drag and drop elements to build your form.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <FormBuilder />
+            </CardContent>
+          </Card>
+          <div>
+            <div className="grid grid-cols-2 gap-4">
+              {elements.map((element) => (
+                <Draggable key={element.id} id={element.id}>
+                  {element.render()}
+                </Draggable>
+              ))}
+            </div>
           </div>
         </div>
         <DragOverlay dropAnimation={null}>

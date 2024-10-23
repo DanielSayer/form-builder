@@ -2,7 +2,6 @@ import { generatorMappings } from "@/components/form-elements/template-mappings"
 import { ElementConfig } from "./element-config";
 
 export const generateForm = (config: ElementConfig[]) => {
-  console.log(config);
   return generateComponentCode(config);
 };
 
@@ -13,8 +12,10 @@ const MyForm = () => {
 
   return (
     ${generateJsx(config)}
-  )
-}
+  );
+};
+
+export default MyForm;
 `.trim();
 };
 
@@ -54,7 +55,13 @@ export const spreadExtraConfig = (extraConfig: object | undefined) => {
   const mappedConfig = extraConfig as Record<string, unknown>;
   return `
     ${Object.keys(mappedConfig)
-      .map((key) => `${key}={${mappedConfig[key]}} `)
+      .map((key) => {
+        if (typeof mappedConfig[key] === "string") {
+          return `${key}={"${mappedConfig[key]}"} `;
+        }
+
+        return `${key}={${mappedConfig[key]}} `;
+      })
       .join("")}
 `.trim();
 };

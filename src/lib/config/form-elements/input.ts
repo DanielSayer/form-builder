@@ -1,12 +1,12 @@
 import { FormElementDetailedConfig } from "./config";
 
 export type InputExtraFieldsConfig = {
-  type: string;
+  type: "number" | "text";
   disabled: boolean;
   max: string;
-  maxlength: string;
+  maxLength: number;
   min: string;
-  minLength: string;
+  minLength: number;
   placeholder: string;
   readonly: boolean;
   step: string;
@@ -16,9 +16,9 @@ export const inputDetailedConfigDefaults: InputExtraFieldsConfig = {
   type: "text",
   disabled: false,
   max: "",
-  maxlength: "",
+  maxLength: Infinity,
   min: "",
-  minLength: "",
+  minLength: -Infinity,
   placeholder: "",
   readonly: false,
   step: "",
@@ -67,7 +67,7 @@ export const inputConfig: FormElementDetailedConfig<InputExtraFieldsConfig>[] =
       type: "number",
     },
     {
-      name: "maxlength",
+      name: "maxLength",
       configFor: "input",
       type: "number",
       min: 0,

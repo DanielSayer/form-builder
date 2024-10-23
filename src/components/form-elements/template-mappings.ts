@@ -34,7 +34,7 @@ export const detailedConfigDefaultMappings = {
 type Config = {
   name: string;
   configFor: FormElement;
-  [key: string]: any;
+  [key: string]: unknown;
 };
 
 export const extraConfigMappings: Record<FormElement, Config[]> = {

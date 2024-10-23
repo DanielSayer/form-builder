@@ -1,5 +1,4 @@
-const formElements = ["input", "select", "checkbox"] as const;
-export type FormElement = (typeof formElements)[number];
+export type FormElement = "input" | "select" | "checkbox";
 
 export type ElementConfig = {
   id?: string;
@@ -8,7 +7,7 @@ export type ElementConfig = {
   label: string;
   description: string;
   element: FormElement;
-  extraConfig?: object;
+  extraConfig?: Record<string, unknown>;
 };
 
 export const defaultElementConfig = (element: FormElement): ElementConfig => {
@@ -25,5 +24,5 @@ export type FormElementProps = {
   name: string;
   label: string;
   description: string;
-  extraConfig?: object;
+  extraConfig?: Record<string, unknown>;
 };

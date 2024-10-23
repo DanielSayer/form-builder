@@ -64,7 +64,7 @@ export const CustomisePage = () => {
                       label: name,
                       name: `extraConfig.${name}`,
                       description: "",
-                      ...config,
+                      extraConfig: { ...config },
                     })}
                   </div>
                 );
