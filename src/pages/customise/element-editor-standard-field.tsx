@@ -13,7 +13,7 @@ import { useFormContext } from "react-hook-form";
 export const ElementEditorStandardFields = () => {
   const { watch } = useFormContext();
 
-  const useLabelAsName = watch("useLabelAsName");
+  const isUsingLabelAsName = watch("isUsingLabelAsName");
   return (
     <div className="space-y-4">
       <FormField
@@ -23,7 +23,7 @@ export const ElementEditorStandardFields = () => {
             <div className="flex justify-between">
               <FormLabel>Label</FormLabel>
               <FormField
-                name="useLabelAsName"
+                name="isUsingLabelAsName"
                 render={({ field }) => (
                   <FormItem className="flex items-center gap-2 space-y-0">
                     <FormControl>
@@ -48,7 +48,7 @@ export const ElementEditorStandardFields = () => {
       />
 
       <div className="grid gap-4 md:grid-cols-2">
-        {!useLabelAsName && (
+        {!isUsingLabelAsName && (
           <FormField
             name="name"
             render={({ field }) => (
@@ -66,7 +66,7 @@ export const ElementEditorStandardFields = () => {
         <FormField
           name="description"
           render={({ field }) => (
-            <FormItem className={cn({ "col-span-2": useLabelAsName })}>
+            <FormItem className={cn({ "col-span-2": isUsingLabelAsName })}>
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Input {...field} />
