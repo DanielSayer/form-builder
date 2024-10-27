@@ -1,6 +1,7 @@
 import { Droppable } from "@/components/droppable";
 import { EmptyElementPlaceholder } from "@/components/empty-element-placeholder";
 import { templateMappings } from "@/components/form-elements/template-mappings";
+import { Preview } from "@/components/preview";
 import { useFormBuilder } from "@/components/providers/form-builder";
 import { SortableItem } from "@/components/sortable-item";
 import { Button, buttonVariants } from "@/components/ui/button";
@@ -55,7 +56,7 @@ export const FormBuilder = () => {
             navigator.clipboard.writeText(generateForm(formElements)),
           )}
         >
-          <div className="block min-h-[80vh] gap-4 overflow-hidden rounded-lg border border-dashed p-4">
+          <div className="block min-h-[80vh] space-y-2 overflow-hidden rounded-lg border border-dashed p-4">
             {formElements.length === 0 && <EmptyElementPlaceholder />}
             <DndContext
               sensors={sensors}
@@ -100,7 +101,10 @@ export const FormBuilder = () => {
             <Button type="button" variant="secondary" onClick={clearElements}>
               Clear
             </Button>
-            <Button type="submit">Submit</Button>
+            <div className="flex gap-4">
+              <Preview elements={formElements} />
+              <Button type="submit">Submit</Button>
+            </div>
           </div>
         </form>
       </Form>
