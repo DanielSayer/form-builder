@@ -11,6 +11,7 @@ type FormBuilderContextValue = {
   formElements: ElementConfig[];
   appendElement: (element: ElementConfig) => void;
   updateElement: (element: ElementConfig) => void;
+  updateElements: (elements: ElementConfig[]) => void;
   clearElements: () => void;
 };
 
@@ -30,6 +31,10 @@ const FormBuilderProvider = ({ children }: PropsWithChildren) => {
   const [formElements, setFormElements] = useState<ElementConfig[]>(() =>
     getElements(),
   );
+
+  const updateElements = useCallback((elements: ElementConfig[]) => {
+    setFormElements(elements);
+  }, []);
 
   const updateElement = useCallback((element: ElementConfig) => {
     setFormElements((curr) =>
@@ -51,7 +56,13 @@ const FormBuilderProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <FormBuilderContext.Provider
-      value={{ formElements, updateElement, appendElement, clearElements }}
+      value={{
+        formElements,
+        updateElement,
+        appendElement,
+        clearElements,
+        updateElements,
+      }}
       children={children}
     />
   );
