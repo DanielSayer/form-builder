@@ -3,13 +3,6 @@ import { InputExtraFieldsConfig } from "@/lib/config/form-elements/input";
 import { FormElementProps } from "@/lib/element-config";
 import { parseValue } from "@/lib/utils";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import {
   FormControl,
   FormDescription,
   FormField,
@@ -18,20 +11,6 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-
-export const InputElementDisplay = () => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Input</CardTitle>
-        <CardDescription>This is a basic input element.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Input id="input" />
-      </CardContent>
-    </Card>
-  );
-};
 
 export function InputFormElement({
   name,

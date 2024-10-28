@@ -1,3 +1,7 @@
+import { ElementConfig } from "@/lib/element-config";
+import { Ghost } from "lucide-react";
+import { templateMappings } from "./form-elements/template-mappings";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogClose,
@@ -8,10 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { ElementConfig } from "@/lib/element-config";
-import { templateMappings } from "./form-elements/template-mappings";
 
 type PreviewProps = {
   elements: ElementConfig[];
@@ -31,6 +32,15 @@ export const Preview = ({ elements }: PreviewProps) => {
           </DialogDescription>
         </DialogHeader>
         <Separator />
+        {elements.length === 0 && (
+          <div className="flex flex-col items-center gap-4 py-10 text-center text-muted-foreground">
+            <Ghost />
+            <div>
+              <div>Nothing to preview yet.</div>
+              <div>Add some elements to your form.</div>
+            </div>
+          </div>
+        )}
         {elements.map((element) => {
           const formElement = templateMappings[element.element];
           return (

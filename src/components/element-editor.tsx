@@ -43,6 +43,7 @@ const ElementEditor = ({ element, onSave, onCancel }: ElementEditorProps) => {
       element: element.element,
       description: data.description ?? "",
       isUsingLabelAsName: data.useLabelAsName,
+      extraConfig: element.extraConfig,
     });
     onCancel();
   };

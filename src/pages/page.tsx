@@ -1,7 +1,7 @@
 import { AddElementDialog } from "@/components/add-element-dialog";
+import { Display } from "@/components/display";
 import Draggable from "@/components/draggable";
 import { FormEditor } from "@/components/form-editor";
-import { InputElementDisplay } from "@/components/form-elements/input-element";
 import { useFormBuilder } from "@/components/providers/form-builder";
 import {
   Card,
@@ -10,11 +10,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  ElementConfig,
-  FormElement,
-  defaultElementConfig,
-} from "@/lib/element-config";
+import { displayElements } from "@/lib/config/presets-config";
+import { ElementConfig, defaultElementConfig } from "@/lib/element-config";
 import {
   DndContext,
   DragEndEvent,
@@ -23,15 +20,6 @@ import {
 } from "@dnd-kit/core";
 import { useState } from "react";
 import { FormBuilder } from "./form-builder";
-
-type FormElementDisplay = {
-  id: FormElement;
-  render: () => JSX.Element;
-};
-
-const elements: FormElementDisplay[] = [
-  { id: "input", render: InputElementDisplay },
-];
 
 export const FormBuilderPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -55,12 +43,16 @@ export const FormBuilderPage = () => {
       return;
     }
 
-    const element = elements.find((x) => x.id === active.id);
+    const element = displayElements.find((x) => x.id === active.id);
     if (!element) {
       return;
     }
 
-    setSelectedElement(defaultElementConfig(element.id));
+    const myElement = defaultElementConfig(
+      element.formElement,
+      element.defaults,
+    );
+    setSelectedElement(myElement);
     setIsOpen(true);
   };
 
@@ -81,16 +73,18 @@ export const FormBuilderPage = () => {
           </Card>
           <div>
             <div className="grid grid-cols-2 gap-4">
-              {elements.map((element) => (
+              {displayElements.map((element) => (
                 <Draggable key={element.id} id={element.id}>
-                  {element.render()}
+                  <Display {...element} />
                 </Draggable>
               ))}
             </div>
           </div>
         </div>
         <DragOverlay dropAnimation={null}>
-          {elements.find((element) => element.id === activeId)?.render()}
+          <Display
+            {...displayElements.find((element) => element.id === activeId)!}
+          />
         </DragOverlay>
       </DndContext>
       <FormEditor config={formElements} />

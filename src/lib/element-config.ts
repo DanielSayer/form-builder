@@ -10,13 +10,17 @@ export type ElementConfig = {
   extraConfig?: Record<string, unknown>;
 };
 
-export const defaultElementConfig = (element: FormElement): ElementConfig => {
+export const defaultElementConfig = (
+  element: FormElement,
+  defaults: Record<string, unknown> | undefined,
+): ElementConfig => {
   return {
     name: "",
     isUsingLabelAsName: true,
     label: "",
     description: "",
     element,
+    extraConfig: defaults,
   };
 };
 
