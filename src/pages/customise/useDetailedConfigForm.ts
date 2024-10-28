@@ -38,7 +38,13 @@ export const stripExtraConfig = (
   Object.keys(extraConfig).forEach((key) => {
     if (!(key in defaults)) {
       delete strippedConfig[key];
-    } else if (strippedConfig[key] === defaults[key]) {
+    }
+
+    if (
+      strippedConfig[key] === defaults[key] ||
+      strippedConfig[key] === "" ||
+      strippedConfig[key] === undefined
+    ) {
       delete strippedConfig[key];
     }
   });

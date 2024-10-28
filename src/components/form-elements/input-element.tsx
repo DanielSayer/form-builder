@@ -1,4 +1,7 @@
+import { spreadExtraConfig } from "@/lib/code-gen";
+import { InputExtraFieldsConfig } from "@/lib/config/form-elements/input";
 import { FormElementProps } from "@/lib/element-config";
+import { parseValue } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -15,8 +18,6 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { spreadExtraConfig } from "@/lib/code-gen";
-import { InputExtraFieldsConfig } from "@/lib/config/form-elements/input";
 
 export const InputElementDisplay = () => {
   return (
@@ -43,19 +44,15 @@ export function InputFormElement({
   return (
     <FormField
       name={name}
+      defaultValue=""
       render={({ field: { onChange, ...field } }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input
-              onChange={(e) => {
-                const val =
-                  typedConfig.type === "number"
-                    ? e.target.valueAsNumber
-                    : e.target.value;
-
-                onChange(val);
-              }}
+              onChange={(e) =>
+                onChange(parseValue(e.target.value, typedConfig.type))
+              }
               {...field}
               {...typedConfig}
             />

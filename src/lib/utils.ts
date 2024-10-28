@@ -14,3 +14,17 @@ export function toCamelCase(str: string) {
     )
     .replace(/\s+/g, "");
 }
+
+export function parseValue(value: string, type: string) {
+  if (type === "number") {
+    const number = parseFloat(value);
+
+    if (isNaN(number)) {
+      return undefined;
+    }
+
+    return number;
+  }
+
+  return value;
+}

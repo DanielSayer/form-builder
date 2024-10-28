@@ -1,27 +1,27 @@
 import { FormElementDetailedConfig } from "./config";
 
 export type InputExtraFieldsConfig = {
-  type: "number" | "text";
+  type: "number" | "text" | "email" | "password" | "date" | "time";
   disabled: boolean;
-  max: string;
+  max: number;
   maxLength: number;
-  min: string;
+  min: number;
   minLength: number;
   placeholder: string;
   readonly: boolean;
   step: string;
 };
 
-export const inputDetailedConfigDefaults: InputExtraFieldsConfig = {
-  type: "text",
+export const inputDetailedConfigDefaults: Partial<InputExtraFieldsConfig> = {
   disabled: false,
-  max: "",
-  maxLength: Infinity,
-  min: "",
-  minLength: -Infinity,
-  placeholder: "",
+  max: undefined,
+  maxLength: undefined,
+  min: undefined,
+  minLength: undefined,
+  placeholder: undefined,
   readonly: false,
-  step: "",
+  step: undefined,
+  type: "text",
 };
 
 export const inputConfig: FormElementDetailedConfig<InputExtraFieldsConfig>[] =
