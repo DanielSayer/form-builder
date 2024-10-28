@@ -18,7 +18,7 @@ export function InputFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
-  const typedConfig = extraConfig as InputExtraFieldsConfig;
+  const typedConfig = (extraConfig ?? {}) as InputExtraFieldsConfig;
 
   return (
     <FormField
@@ -30,7 +30,7 @@ export function InputFormElement({
           <FormControl>
             <Input
               onChange={(e) =>
-                onChange(parseValue(e.target.value, typedConfig.type))
+                onChange(parseValue(e.target.value, typedConfig.type ?? "text"))
               }
               {...field}
               {...typedConfig}

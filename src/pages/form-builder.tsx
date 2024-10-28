@@ -1,10 +1,9 @@
 import { Droppable } from "@/components/droppable";
 import { EmptyElementPlaceholder } from "@/components/empty-element-placeholder";
-import { templateMappings } from "@/components/form-elements/template-mappings";
+import { FormItem } from "@/components/form-item";
 import { Preview } from "@/components/preview";
 import { useFormBuilder } from "@/components/providers/form-builder";
-import { SortableItem } from "@/components/sortable-item";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { generateForm } from "@/lib/code-gen";
 import {
@@ -22,13 +21,12 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Pencil } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
 
 export const FormBuilder = () => {
   const form = useForm();
-  const { formElements, clearElements, updateElements } = useFormBuilder();
+  const { formElements, clearElements, updateElements, removeElement } =
+    useFormBuilder();
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -67,33 +65,13 @@ export const FormBuilder = () => {
                 items={formElements.map((x, i) => x.id ?? i)}
                 strategy={verticalListSortingStrategy}
               >
-                {formElements.map((element, i) => {
-                  const formElement = templateMappings[element.element];
-                  return (
-                    <SortableItem key={element.id} id={element.id ?? `${i}`}>
-                      <div key={element.id} className="flex items-center gap-2">
-                        <div className="w-full">
-                          {formElement({
-                            name: element.name,
-                            label: element.label,
-                            description: element.description,
-                            extraConfig: element.extraConfig,
-                          })}
-                        </div>
-                        <Link
-                          to={`/customise/${element.id}`}
-                          className={buttonVariants({
-                            className: "!rounded-full",
-                            variant: "ghost",
-                            size: "icon",
-                          })}
-                        >
-                          <Pencil className="h-4 w-4" />
-                        </Link>
-                      </div>
-                    </SortableItem>
-                  );
-                })}
+                {formElements.map((element) => (
+                  <FormItem
+                    key={element.id}
+                    element={element}
+                    removeElement={removeElement}
+                  />
+                ))}
               </SortableContext>
             </DndContext>
           </div>

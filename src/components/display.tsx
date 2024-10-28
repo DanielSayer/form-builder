@@ -32,7 +32,9 @@ export const Display = ({
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
-      <CardContent>{render({ id, defaults })}</CardContent>
+      <CardContent>
+        <form>{render({ id, defaults })}</form>
+      </CardContent>
     </Card>
   );
 };

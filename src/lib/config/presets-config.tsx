@@ -22,4 +22,20 @@ export const displayElements: FormElementDisplay[] = [
     render: (props) => <Input id={props.id} {...props.defaults} />,
     defaults: { type: "number" },
   },
+  {
+    formElement: "input",
+    id: "email-input",
+    title: "Email Input",
+    description: "A basic email input field",
+    render: (props) => <Input id={props.id} {...props.defaults} />,
+    defaults: { type: "email" },
+  },
+  {
+    formElement: "input",
+    id: "password-input",
+    title: "Password Input",
+    description: "A basic password input field",
+    render: (props) => <Input id={props.id} {...props.defaults} />,
+    defaults: { type: "password" },
+  },
 ];

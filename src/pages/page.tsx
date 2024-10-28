@@ -71,15 +71,23 @@ export const FormBuilderPage = () => {
               <FormBuilder />
             </CardContent>
           </Card>
-          <div>
-            <div className="grid grid-cols-2 gap-4">
-              {displayElements.map((element) => (
-                <Draggable key={element.id} id={element.id}>
-                  <Display {...element} />
-                </Draggable>
-              ))}
-            </div>
-          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Elements</CardTitle>
+              <CardDescription>
+                Drag and drop elements to build your form.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-3 gap-4">
+                {displayElements.map((element) => (
+                  <Draggable key={element.id} id={element.id}>
+                    <Display {...element} />
+                  </Draggable>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
         <DragOverlay dropAnimation={null}>
           <Display
