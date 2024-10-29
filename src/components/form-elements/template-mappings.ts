@@ -14,6 +14,14 @@ import {
   textAreaConfig,
   textAreaDetailedConfigDefaults,
 } from "@/lib/config/form-elements/textarea";
+import {
+  DatePickerFormElement,
+  generateDatePickerFormElement,
+} from "./date-picker-element";
+import {
+  datePickerConfig,
+  datePickerDetailedConfigDefaults,
+} from "@/lib/config/form-elements/date-picker";
 
 export const templateMappings: Record<
   FormElement,
@@ -23,6 +31,7 @@ export const templateMappings: Record<
   select: SelectFormElement,
   checkbox: CheckboxFormElement,
   textarea: TextAreaFormElement,
+  datepicker: DatePickerFormElement,
 };
 
 export const generatorMappings: Record<
@@ -33,6 +42,7 @@ export const generatorMappings: Record<
   select: () => "",
   checkbox: () => "",
   textarea: generateTextAreaFormElement,
+  datepicker: generateDatePickerFormElement,
 };
 
 export const detailedConfigDefaultMappings = {
@@ -40,6 +50,7 @@ export const detailedConfigDefaultMappings = {
   select: {},
   checkbox: {},
   textarea: textAreaDetailedConfigDefaults,
+  datepicker: datePickerDetailedConfigDefaults,
 };
 
 type Config = {
@@ -53,4 +64,5 @@ export const extraConfigMappings: Record<FormElement, Config[]> = {
   select: [],
   checkbox: [],
   textarea: textAreaConfig,
+  datepicker: datePickerConfig,
 };

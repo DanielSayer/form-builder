@@ -1,7 +1,8 @@
 import { DisplayProps } from "@/components/display";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Input } from "@/components/ui/input";
-import { FormElement } from "../element-config";
 import { Textarea } from "@/components/ui/textarea";
+import { FormElement } from "../element-config";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -53,7 +54,14 @@ export const displayElements: FormElementDisplay[] = [
     title: "Text Area",
     description: "An expandable text area",
     render: (props) => (
-      <Textarea id={props.id} className="min-h-10 resize-none" />
+      <Textarea id={props.id} className="h-10 min-h-10 resize-none" />
     ),
+  },
+  {
+    formElement: "datepicker",
+    id: "datepicker",
+    title: "Date Picker",
+    description: "A date picker",
+    render: (props) => <DatePicker id={props.id} />,
   },
 ];

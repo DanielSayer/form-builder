@@ -1,4 +1,9 @@
-export type FormElement = "input" | "select" | "checkbox" | "textarea";
+export type FormElement =
+  | "input"
+  | "select"
+  | "checkbox"
+  | "textarea"
+  | "datepicker";
 
 export type ElementConfig = {
   id?: string;
