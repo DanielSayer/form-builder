@@ -3,6 +3,7 @@ import { DatePicker } from "@/components/ui/date-picker";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FormElement } from "../element-config";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -63,5 +64,14 @@ export const displayElements: FormElementDisplay[] = [
     title: "Date Picker",
     description: "A date picker",
     render: (props) => <DatePicker id={props.id} />,
+    defaults: { placeholder: "Pick a date" },
+  },
+  {
+    formElement: "daterangepicker",
+    id: "daterangepicker",
+    title: "Date Range Picker",
+    description: "A date range picker",
+    render: (props) => <DateRangePicker id={props.id} />,
+    defaults: { placeholder: "Pick a date" },
   },
 ];

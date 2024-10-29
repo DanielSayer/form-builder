@@ -3,7 +3,8 @@ export type FormElement =
   | "select"
   | "checkbox"
   | "textarea"
-  | "datepicker";
+  | "datepicker"
+  | "daterangepicker";
 
 export type ElementConfig = {
   id?: string;
