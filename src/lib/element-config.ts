@@ -1,4 +1,4 @@
-export type FormElement = "input" | "select" | "checkbox";
+export type FormElement = "input" | "select" | "checkbox" | "textarea";
 
 export type ElementConfig = {
   id?: string;

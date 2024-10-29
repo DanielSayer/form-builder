@@ -6,6 +6,14 @@ import {
   inputConfig,
   inputDetailedConfigDefaults,
 } from "@/lib/config/form-elements/input";
+import {
+  generateTextAreaFormElement,
+  TextAreaFormElement,
+} from "./textarea-element";
+import {
+  textAreaConfig,
+  textAreaDetailedConfigDefaults,
+} from "@/lib/config/form-elements/textarea";
 
 export const templateMappings: Record<
   FormElement,
@@ -14,6 +22,7 @@ export const templateMappings: Record<
   input: InputFormElement,
   select: SelectFormElement,
   checkbox: CheckboxFormElement,
+  textarea: TextAreaFormElement,
 };
 
 export const generatorMappings: Record<
@@ -23,12 +32,14 @@ export const generatorMappings: Record<
   input: generateInputFormElement,
   select: () => "",
   checkbox: () => "",
+  textarea: generateTextAreaFormElement,
 };
 
 export const detailedConfigDefaultMappings = {
   input: inputDetailedConfigDefaults,
   select: {},
   checkbox: {},
+  textarea: textAreaDetailedConfigDefaults,
 };
 
 type Config = {
@@ -41,4 +52,5 @@ export const extraConfigMappings: Record<FormElement, Config[]> = {
   input: inputConfig,
   select: [],
   checkbox: [],
+  textarea: textAreaConfig,
 };

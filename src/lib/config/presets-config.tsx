@@ -1,6 +1,7 @@
 import { DisplayProps } from "@/components/display";
 import { Input } from "@/components/ui/input";
 import { FormElement } from "../element-config";
+import { Textarea } from "@/components/ui/textarea";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -45,5 +46,14 @@ export const displayElements: FormElementDisplay[] = [
     description: "A basic time input field",
     render: (props) => <Input id={props.id} {...props.defaults} />,
     defaults: { type: "time" },
+  },
+  {
+    formElement: "textarea",
+    id: "textarea",
+    title: "Text Area",
+    description: "An expandable text area",
+    render: (props) => (
+      <Textarea id={props.id} className="min-h-10 resize-none" />
+    ),
   },
 ];
