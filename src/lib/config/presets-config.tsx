@@ -38,4 +38,12 @@ export const displayElements: FormElementDisplay[] = [
     render: (props) => <Input id={props.id} {...props.defaults} />,
     defaults: { type: "password" },
   },
+  {
+    formElement: "input",
+    id: "time-input",
+    title: "Time Input",
+    description: "A basic time input field",
+    render: (props) => <Input id={props.id} {...props.defaults} />,
+    defaults: { type: "time" },
+  },
 ];
