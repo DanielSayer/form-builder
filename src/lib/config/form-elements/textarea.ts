@@ -5,7 +5,7 @@ export type TextAreaExtraFieldsConfig = {
   maxLength: number;
   minLength: number;
   placeholder: string;
-  readonly: boolean;
+  readOnly: boolean;
 };
 
 export const textAreaDetailedConfigDefaults: Partial<TextAreaExtraFieldsConfig> =
@@ -14,7 +14,7 @@ export const textAreaDetailedConfigDefaults: Partial<TextAreaExtraFieldsConfig> 
     maxLength: undefined,
     minLength: undefined,
     placeholder: undefined,
-    readonly: false,
+    readOnly: false,
   };
 
 export const textAreaConfig: FormElementDetailedConfig<TextAreaExtraFieldsConfig>[] =
@@ -41,7 +41,7 @@ export const textAreaConfig: FormElementDetailedConfig<TextAreaExtraFieldsConfig
       type: "text",
     },
     {
-      name: "readonly",
+      name: "readOnly",
       configFor: "checkbox",
     },
   ] as const;

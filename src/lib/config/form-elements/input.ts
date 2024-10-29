@@ -8,7 +8,7 @@ export type InputExtraFieldsConfig = {
   min: number;
   minLength: number;
   placeholder: string;
-  readonly: boolean;
+  readOnly: boolean;
   step: string;
 };
 
@@ -19,7 +19,7 @@ export const inputDetailedConfigDefaults: Partial<InputExtraFieldsConfig> = {
   min: undefined,
   minLength: undefined,
   placeholder: undefined,
-  readonly: false,
+  readOnly: false,
   step: undefined,
   type: "text",
 };
@@ -89,7 +89,7 @@ export const inputConfig: FormElementDetailedConfig<InputExtraFieldsConfig>[] =
       type: "text",
     },
     {
-      name: "readonly",
+      name: "readOnly",
       configFor: "checkbox",
     },
     {
