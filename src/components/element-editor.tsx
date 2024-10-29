@@ -5,10 +5,8 @@ import {
 } from "@/lib/schemas/element-editor";
 import { toCamelCase } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { Button, buttonVariants } from "./ui/button";
+import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import {
   Form,
@@ -121,15 +119,6 @@ const ElementEditor = ({ element, onSave, onCancel }: ElementEditorProps) => {
             </FormItem>
           )}
         />
-        {element.id && (
-          <Link
-            to={`/customise/${element.id}`}
-            className={buttonVariants({ variant: "ghost" })}
-          >
-            I want more fields
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        )}
         <Separator />
         <div className="flex justify-between">
           <Button type="button" onClick={onCancel} variant="secondary">

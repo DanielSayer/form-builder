@@ -1,8 +1,6 @@
 import { AddElementDialog } from "@/components/add-element-dialog";
 import { Display } from "@/components/display";
 import Draggable from "@/components/draggable";
-import { FormEditor } from "@/components/form-editor";
-import { useFormBuilder } from "@/components/providers/form-builder";
 import {
   Card,
   CardContent,
@@ -24,7 +22,6 @@ import { FormBuilder } from "./form-builder";
 export const FormBuilderPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const { formElements } = useFormBuilder();
   const [selectedElement, setSelectedElement] = useState<ElementConfig | null>(
     null,
   );
@@ -95,7 +92,6 @@ export const FormBuilderPage = () => {
           />
         </DragOverlay>
       </DndContext>
-      <FormEditor config={formElements} />
       <AddElementDialog
         isOpen={isOpen}
         toggle={toggle}
