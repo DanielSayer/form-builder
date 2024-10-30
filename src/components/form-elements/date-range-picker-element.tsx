@@ -92,6 +92,44 @@ export function generateDateRangePickerFormElement({
 }: FormElementProps) {
   const typedConfig = (extraConfig ?? {}) as DateRangePickerExtraFieldsConfig;
 
+  const imports = [
+    {
+      from: "@/components/ui/form",
+      imports: [
+        "FormControl",
+        description ? "FormDescription" : "",
+        "FormField",
+        "FormItem",
+        "FormLabel",
+        "FormMessage",
+      ],
+    },
+    {
+      from: "@/components/ui/popover",
+      imports: ["Popover", "PopoverContent", "PopoverTrigger"],
+    },
+    {
+      from: "@/components/ui/button",
+      imports: ["Button"],
+    },
+    {
+      from: "@/components/ui/calendar",
+      imports: ["Calendar"],
+    },
+    {
+      from: "date-fns",
+      imports: ["format"],
+    },
+    {
+      from: "lucide-react",
+      imports: ["CalendarIcon"],
+    },
+    {
+      from: "@/lib/utils",
+      imports: ["cn"],
+    },
+  ];
+
   const componentCode = `
         <FormField
           name="${name}"
@@ -152,5 +190,5 @@ export function generateDateRangePickerFormElement({
         />
   `.trim();
 
-  return { componentCode };
+  return { imports, componentCode };
 }

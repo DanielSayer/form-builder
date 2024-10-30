@@ -48,6 +48,24 @@ export function generateCheckboxFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
+  const imports = [
+    {
+      from: "@/components/ui/form",
+      imports: [
+        "FormControl",
+        description ? "FormDescription" : "",
+        "FormField",
+        "FormItem",
+        "FormLabel",
+        "FormMessage",
+      ],
+    },
+    {
+      from: "@/components/ui/checkbox",
+      imports: ["Checkbox"],
+    },
+  ];
+
   const componentCode = `
         <FormField
           name="${name}"
@@ -66,5 +84,5 @@ export function generateCheckboxFormElement({
         />
 `.trim();
 
-  return { componentCode };
+  return { imports, componentCode };
 }

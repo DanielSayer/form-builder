@@ -90,6 +90,30 @@ export function generateSelectFormElement({
 }: FormElementProps) {
   const typedConfig = extraConfig as Partial<SelectExtraFieldsConfig>;
 
+  const imports = [
+    {
+      from: "@/components/ui/form",
+      imports: [
+        "FormControl",
+        description ? "FormDescription" : "",
+        "FormField",
+        "FormItem",
+        "FormLabel",
+        "FormMessage",
+      ],
+    },
+    {
+      from: "@/components/ui/select",
+      imports: [
+        "Select",
+        "SelectContent",
+        "SelectItem",
+        "SelectTrigger",
+        "SelectValue",
+      ],
+    },
+  ];
+
   const componentCode = `
         <FormField
           name="${name}"
@@ -120,5 +144,5 @@ export function generateSelectFormElement({
         />
   `.trim();
 
-  return { componentCode };
+  return { imports, componentCode };
 }

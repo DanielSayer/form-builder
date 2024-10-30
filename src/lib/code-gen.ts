@@ -2,24 +2,83 @@ import { generatorMappings } from "@/components/form-elements/template-mappings"
 import { ElementConfig } from "./element-config";
 
 export type GeneratedCode = {
-  imports?: string[];
+  imports?: Import[];
   hoistedVariables?: string[];
   componentCode: string;
+};
+
+type Import = {
+  from: string;
+  imports: string[];
+  isDefault?: boolean;
 };
 
 export const generateForm = (config: ElementConfig[]): string => {
   const generated = generateComponentCode(config);
 
   return [
-    ...(generated.imports || []),
+    generateImports(generated.imports || []),
     "",
     ...(generated.hoistedVariables || []),
     "",
     generated.componentCode,
-  ].join("\n");
+  ]
+    .filter(Boolean)
+    .join("\n");
+};
+
+const generateImports = (imports: Import[]): string => {
+  // Group imports by source
+  const groupedImports = imports.reduce(
+    (acc, curr) => {
+      if (!acc[curr.from]) {
+        acc[curr.from] = { default: [], named: [] };
+      }
+      curr.imports.forEach((imp) => {
+        if (curr.isDefault) {
+          acc[curr.from].default.push(imp);
+        } else {
+          acc[curr.from].named.push(imp);
+        }
+      });
+      return acc;
+    },
+    {} as Record<string, { default: string[]; named: string[] }>,
+  );
+
+  // Generate import statements
+  return Object.entries(groupedImports)
+    .map(([source, { default: defaultImports, named }]) => {
+      const parts: string[] = [];
+
+      if (defaultImports.length) {
+        parts.push(...defaultImports);
+      }
+
+      if (named.length) {
+        // Sort imports alphabetically
+        const namedStr = named.sort().join(",\n  ");
+        parts.push(`{\n  ${namedStr}\n}`);
+      }
+
+      return `import ${parts.join(", ")} from "${source}";`;
+    })
+    .join("\n");
 };
 
 const generateComponentCode = (config: ElementConfig[]): GeneratedCode => {
+  // Base imports that are always needed
+  const baseImports: Import[] = [
+    {
+      from: "@/components/ui/form",
+      imports: ["Form"],
+    },
+    {
+      from: "react-hook-form",
+      imports: ["useForm"],
+    },
+  ];
+
   const collectedCode = config.map((element) =>
     generatorMappings[element.element]({
       name: element.name,
@@ -29,14 +88,22 @@ const generateComponentCode = (config: ElementConfig[]): GeneratedCode => {
     }),
   );
 
-  // Collect all hoisted variables and imports
+  // Merge base imports with component imports
+  const imports = [
+    ...baseImports,
+    ...collectedCode.flatMap((code) => code.imports || []),
+  ].reduce((acc, curr) => {
+    const existing = acc.find((imp) => imp.from === curr.from);
+    if (existing) {
+      existing.imports = [...new Set([...existing.imports, ...curr.imports])];
+      return acc;
+    }
+    return [...acc, curr];
+  }, [] as Import[]);
+
   const hoistedVariables = collectedCode
     .flatMap((code) => code.hoistedVariables || [])
-    .filter((v, i, arr) => arr.indexOf(v) === i); // Remove duplicates
-
-  const imports = collectedCode
-    .flatMap((code) => code.imports || [])
-    .filter((v, i, arr) => arr.indexOf(v) === i); // Remove duplicates
+    .filter((v, i, arr) => arr.indexOf(v) === i);
 
   const jsxElements = collectedCode
     .map((code) => removeBlankLines(code.componentCode))

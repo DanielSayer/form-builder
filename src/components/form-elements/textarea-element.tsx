@@ -43,6 +43,24 @@ export function generateTextAreaFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
+  const imports = [
+    {
+      from: "@/components/ui/form",
+      imports: [
+        "FormControl",
+        description ? "FormDescription" : "",
+        "FormField",
+        "FormItem",
+        "FormLabel",
+        "FormMessage",
+      ],
+    },
+    {
+      from: "@/components/ui/textarea",
+      imports: ["Textarea"],
+    },
+  ];
+
   const componentCode = `
         <FormField
           name="${name}"
@@ -59,5 +77,5 @@ export function generateTextAreaFormElement({
         />
   `.trim();
 
-  return { componentCode };
+  return { imports, componentCode };
 }

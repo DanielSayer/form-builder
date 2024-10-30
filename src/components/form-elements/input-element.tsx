@@ -50,6 +50,24 @@ export function generateInputFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
+  const imports = [
+    {
+      from: "@/components/ui/form",
+      imports: [
+        "FormControl",
+        description ? "FormDescription" : "",
+        "FormField",
+        "FormItem",
+        "FormLabel",
+        "FormMessage",
+      ],
+    },
+    {
+      from: "@/components/ui/input",
+      imports: ["Input"],
+    },
+  ];
+
   const componentCode = `
         <FormField
           name="${name}"
@@ -66,5 +84,5 @@ export function generateInputFormElement({
         />
   `.trim();
 
-  return { componentCode };
+  return { imports, componentCode };
 }
