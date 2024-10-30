@@ -74,7 +74,7 @@ export function generateDatePickerFormElement({
 }: FormElementProps) {
   const typedConfig = (extraConfig ?? {}) as DatePickerExtraFieldsConfig;
 
-  return `
+  const componentCode = `
         <FormField
           name="${name}"
           render={({ field }) => (
@@ -115,4 +115,6 @@ export function generateDatePickerFormElement({
           )}
         />
   `.trim();
+
+  return { componentCode };
 }

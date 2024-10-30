@@ -47,6 +47,7 @@ import {
   generateTextAreaFormElement,
   TextAreaFormElement,
 } from "./textarea-element";
+import { GeneratedCode } from "@/lib/code-gen";
 
 export const templateMappings: Record<
   FormElement,
@@ -64,7 +65,7 @@ export const templateMappings: Record<
 
 export const generatorMappings: Record<
   FormElement,
-  (props: FormElementProps) => string
+  (props: FormElementProps) => GeneratedCode
 > = {
   input: generateInputFormElement,
   select: generateSelectFormElement,
@@ -72,8 +73,12 @@ export const generatorMappings: Record<
   textarea: generateTextAreaFormElement,
   datepicker: generateDatePickerFormElement,
   daterangepicker: generateDateRangePickerFormElement,
-  list: () => "",
-  checkboxlist: () => "",
+  list: () => ({
+    componentCode: "",
+  }),
+  checkboxlist: () => ({
+    componentCode: "",
+  }),
 };
 
 export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {

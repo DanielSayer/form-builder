@@ -90,7 +90,7 @@ export function generateSelectFormElement({
 }: FormElementProps) {
   const typedConfig = extraConfig as Partial<SelectExtraFieldsConfig>;
 
-  return `
+  const componentCode = `
         <FormField
           name="${name}"
           render={({ field }) => (
@@ -119,4 +119,6 @@ export function generateSelectFormElement({
           )}
         />
   `.trim();
+
+  return { componentCode };
 }

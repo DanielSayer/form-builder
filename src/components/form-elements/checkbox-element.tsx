@@ -48,7 +48,7 @@ export function generateCheckboxFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
-  return `
+  const componentCode = `
         <FormField
           name="${name}"
           render={({ field }) => (
@@ -65,4 +65,6 @@ export function generateCheckboxFormElement({
           )}
         />
 `.trim();
+
+  return { componentCode };
 }

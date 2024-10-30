@@ -43,7 +43,7 @@ export function generateTextAreaFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
-  return `
+  const componentCode = `
         <FormField
           name="${name}"
           render={({ field }) => (
@@ -58,4 +58,6 @@ export function generateTextAreaFormElement({
           )}
         />
   `.trim();
+
+  return { componentCode };
 }

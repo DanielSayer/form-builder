@@ -50,7 +50,7 @@ export function generateInputFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
-  return `
+  const componentCode = `
         <FormField
           name="${name}"
           render={({ field }) => (
@@ -65,4 +65,6 @@ export function generateInputFormElement({
           )}
         />
   `.trim();
+
+  return { componentCode };
 }
