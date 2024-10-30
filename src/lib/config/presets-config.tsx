@@ -110,4 +110,39 @@ export const displayElements: FormElementDisplay[] = [
       </div>
     ),
   },
+  {
+    formElement: "checkboxlist",
+    id: "checkboxlist",
+    title: "Checkbox List",
+    description: "A list of checkboxes",
+    render: (props) => (
+      <div className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <Checkbox id={props.id} />
+          <label
+            htmlFor={props.id}
+            className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Click me
+          </label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Checkbox id={`${props.id}-1`} />
+          <label
+            htmlFor={`${props.id}-1`}
+            className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Or me
+          </label>
+        </div>
+      </div>
+    ),
+    defaults: {
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+        { value: "3", label: "Option 3" },
+      ],
+    },
+  },
 ];

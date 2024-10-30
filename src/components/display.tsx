@@ -27,7 +27,7 @@ export const Display = ({
   defaults,
 }: DisplayProps) => {
   return (
-    <Card>
+    <Card className="h-40">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

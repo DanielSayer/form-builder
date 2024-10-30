@@ -1,47 +1,52 @@
-import { FormElement, FormElementProps } from "@/lib/element-config";
-import { generateInputFormElement, InputFormElement } from "./input-element";
-import { generateSelectFormElement, SelectFormElement } from "./select-element";
 import {
-  CheckboxFormElement,
-  generateCheckboxFormElement,
-} from "./checkbox-element";
+  checkboxConfig,
+  checkboxDetailedConfigDefaults,
+} from "@/lib/config/form-elements/checkbox";
 import {
-  inputConfig,
-  inputDetailedConfigDefaults,
-} from "@/lib/config/form-elements/input";
-import {
-  generateTextAreaFormElement,
-  TextAreaFormElement,
-} from "./textarea-element";
-import {
-  textAreaConfig,
-  textAreaDetailedConfigDefaults,
-} from "@/lib/config/form-elements/textarea";
-import {
-  DatePickerFormElement,
-  generateDatePickerFormElement,
-} from "./date-picker-element";
+  checkboxListConfig,
+  checkboxListDetailedConfigDefaults,
+} from "@/lib/config/form-elements/checkbox-list";
 import {
   datePickerConfig,
   datePickerDetailedConfigDefaults,
 } from "@/lib/config/form-elements/date-picker";
 import {
-  DateRangePickerFormElement,
-  generateDateRangePickerFormElement,
-} from "./date-range-picker-element";
-import {
   dateRangePickerConfig,
   dateRangePickerDetailedConfigDefaults,
 } from "@/lib/config/form-elements/date-range-picker";
 import {
+  inputConfig,
+  inputDetailedConfigDefaults,
+} from "@/lib/config/form-elements/input";
+import {
   selectConfig,
   selectDetailedConfigDefaults,
 } from "@/lib/config/form-elements/select";
-import { ListFormElement } from "./list-element";
 import {
-  checkboxConfig,
-  checkboxDetailedConfigDefaults,
-} from "@/lib/config/form-elements/checkbox";
+  textAreaConfig,
+  textAreaDetailedConfigDefaults,
+} from "@/lib/config/form-elements/textarea";
+import { FormElement, FormElementProps } from "@/lib/element-config";
+import {
+  CheckboxFormElement,
+  generateCheckboxFormElement,
+} from "./checkbox-element";
+import { CheckboxListFormElement } from "./checkbox-list";
+import {
+  DatePickerFormElement,
+  generateDatePickerFormElement,
+} from "./date-picker-element";
+import {
+  DateRangePickerFormElement,
+  generateDateRangePickerFormElement,
+} from "./date-range-picker-element";
+import { generateInputFormElement, InputFormElement } from "./input-element";
+import { ListFormElement } from "./list-element";
+import { generateSelectFormElement, SelectFormElement } from "./select-element";
+import {
+  generateTextAreaFormElement,
+  TextAreaFormElement,
+} from "./textarea-element";
 
 export const templateMappings: Record<
   FormElement,
@@ -54,6 +59,7 @@ export const templateMappings: Record<
   datepicker: DatePickerFormElement,
   daterangepicker: DateRangePickerFormElement,
   list: ListFormElement,
+  checkboxlist: CheckboxListFormElement,
 };
 
 export const generatorMappings: Record<
@@ -67,6 +73,7 @@ export const generatorMappings: Record<
   datepicker: generateDatePickerFormElement,
   daterangepicker: generateDateRangePickerFormElement,
   list: () => "",
+  checkboxlist: () => "",
 };
 
 export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
@@ -77,6 +84,7 @@ export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
   datepicker: datePickerDetailedConfigDefaults,
   daterangepicker: dateRangePickerDetailedConfigDefaults,
   list: {},
+  checkboxlist: checkboxListDetailedConfigDefaults,
 };
 
 type Config = {
@@ -94,4 +102,5 @@ export const extraConfigMappings: Record<FormElement, Config[]> = {
   datepicker: datePickerConfig,
   daterangepicker: dateRangePickerConfig,
   list: [],
+  checkboxlist: checkboxListConfig,
 };

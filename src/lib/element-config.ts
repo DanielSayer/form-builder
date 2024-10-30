@@ -2,6 +2,7 @@ export type FormElement =
   | "input"
   | "select"
   | "checkbox"
+  | "checkboxlist"
   | "textarea"
   | "datepicker"
   | "daterangepicker"
