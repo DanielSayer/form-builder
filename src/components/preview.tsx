@@ -42,16 +42,11 @@ export const Preview = ({ elements }: PreviewProps) => {
           </div>
         )}
         {elements.map((element) => {
-          const formElement = templateMappings[element.element];
+          const FormElement = templateMappings[element.element];
           return (
             <div key={element.id}>
               <div className="w-full">
-                {formElement({
-                  name: element.name,
-                  label: element.label,
-                  description: element.description,
-                  extraConfig: element.extraConfig,
-                })}
+                <FormElement {...element} />
               </div>
             </div>
           );

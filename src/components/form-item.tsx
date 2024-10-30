@@ -11,7 +11,7 @@ type FormItemProps = {
 };
 
 export const FormItem = ({ element, removeElement }: FormItemProps) => {
-  const formElement = templateMappings[element.element];
+  const FormElement = templateMappings[element.element];
   const elementId = element.id;
 
   if (!elementId) {
@@ -22,12 +22,7 @@ export const FormItem = ({ element, removeElement }: FormItemProps) => {
     <SortableItem id={elementId}>
       <div className="flex items-center gap-2">
         <div className="w-full">
-          {formElement({
-            name: element.name,
-            label: element.label,
-            description: element.description,
-            extraConfig: element.extraConfig,
-          })}
+          <FormElement {...element} />
         </div>
         <div className="flex gap-2">
           <Button

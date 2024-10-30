@@ -2,7 +2,7 @@ type ConfigBase<T> = {
   name: keyof T;
 };
 
-export type InputConfig = {
+type InputConfig = {
   configFor: "input";
   type: "number" | "text";
   min?: number;
@@ -21,6 +21,10 @@ export type SelectConfig = {
   }[];
 };
 
-type Config = InputConfig | CheckboxConfig | SelectConfig;
+export type ListConfig = {
+  configFor: "list";
+};
+
+type Config = InputConfig | CheckboxConfig | SelectConfig | ListConfig;
 
 export type FormElementDetailedConfig<T> = ConfigBase<T> & Config;

@@ -7,6 +7,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
 import { ElementConfig } from "@/lib/element-config";
+import { cn } from "@/lib/utils";
 import { getElement, updateElement } from "@/server/elements/elements";
 import { ArrowLeft } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
@@ -56,16 +57,21 @@ export const CustomisePage = () => {
 
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {extraConfigMappings[element.element].map(
-              ({ name, configFor, ...config }) => {
-                const element = templateMappings[configFor];
+              ({ name, configFor, description, ...config }) => {
+                const Element = templateMappings[configFor];
                 return (
-                  <div key={name} className="grid items-center">
-                    {element({
-                      label: name,
-                      name: `extraConfig.${name}`,
-                      description: "",
-                      extraConfig: { ...config },
+                  <div
+                    key={name}
+                    className={cn("grid items-center", {
+                      "col-span-4": configFor === "list",
                     })}
+                  >
+                    <Element
+                      label={name}
+                      description={description}
+                      name={`extraConfig.${name}`}
+                      extraConfig={{ ...config }}
+                    />
                   </div>
                 );
               },

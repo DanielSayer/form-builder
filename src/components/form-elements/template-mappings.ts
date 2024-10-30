@@ -1,6 +1,6 @@
 import { FormElement, FormElementProps } from "@/lib/element-config";
 import { generateInputFormElement, InputFormElement } from "./input-element";
-import { SelectFormElement } from "./select-element";
+import { generateSelectFormElement, SelectFormElement } from "./select-element";
 import { CheckboxFormElement } from "./checkbox-element";
 import {
   inputConfig,
@@ -30,6 +30,11 @@ import {
   dateRangePickerConfig,
   dateRangePickerDetailedConfigDefaults,
 } from "@/lib/config/form-elements/date-range-picker";
+import {
+  selectConfig,
+  selectDetailedConfigDefaults,
+} from "@/lib/config/form-elements/select";
+import { ListFormElement } from "./list-element";
 
 export const templateMappings: Record<
   FormElement,
@@ -41,6 +46,7 @@ export const templateMappings: Record<
   textarea: TextAreaFormElement,
   datepicker: DatePickerFormElement,
   daterangepicker: DateRangePickerFormElement,
+  list: ListFormElement,
 };
 
 export const generatorMappings: Record<
@@ -48,33 +54,37 @@ export const generatorMappings: Record<
   (props: FormElementProps) => string
 > = {
   input: generateInputFormElement,
-  select: () => "",
+  select: generateSelectFormElement,
   checkbox: () => "",
   textarea: generateTextAreaFormElement,
   datepicker: generateDatePickerFormElement,
   daterangepicker: generateDateRangePickerFormElement,
+  list: () => "",
 };
 
-export const detailedConfigDefaultMappings = {
+export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
   input: inputDetailedConfigDefaults,
-  select: {},
+  select: selectDetailedConfigDefaults,
   checkbox: {},
   textarea: textAreaDetailedConfigDefaults,
   datepicker: datePickerDetailedConfigDefaults,
   daterangepicker: dateRangePickerDetailedConfigDefaults,
+  list: {},
 };
 
 type Config = {
   name: string;
   configFor: FormElement;
+  description?: string;
   [key: string]: unknown;
 };
 
 export const extraConfigMappings: Record<FormElement, Config[]> = {
   input: inputConfig,
-  select: [],
+  select: selectConfig,
   checkbox: [],
   textarea: textAreaConfig,
   datepicker: datePickerConfig,
   daterangepicker: dateRangePickerConfig,
+  list: [],
 };

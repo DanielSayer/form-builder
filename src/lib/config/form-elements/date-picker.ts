@@ -8,7 +8,7 @@ export type DatePickerExtraFieldsConfig = {
 export const datePickerDetailedConfigDefaults: Partial<DatePickerExtraFieldsConfig> =
   {
     disabled: false,
-    placeholder: "Pick a date",
+    placeholder: undefined,
   };
 
 export const datePickerConfig: FormElementDetailedConfig<DatePickerExtraFieldsConfig>[] =

@@ -1,9 +1,10 @@
 import { DisplayProps } from "@/components/display";
+import { SelectDisplayElement } from "@/components/form-elements/select-element";
 import { DatePicker } from "@/components/ui/date-picker";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FormElement } from "../element-config";
-import { DateRangePicker } from "@/components/ui/date-range-picker";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -73,5 +74,22 @@ export const displayElements: FormElementDisplay[] = [
     description: "A date range picker",
     render: (props) => <DateRangePicker id={props.id} />,
     defaults: { placeholder: "Pick a date" },
+  },
+  {
+    formElement: "select",
+    id: "select",
+    title: "Select",
+    description: "A select field",
+    render: (props) => (
+      <SelectDisplayElement id={props.id} {...props.defaults} />
+    ),
+    defaults: {
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+        { value: "3", label: "Option 3" },
+      ],
+      placeholder: "Select an option",
+    },
   },
 ];

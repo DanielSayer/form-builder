@@ -4,7 +4,8 @@ export type FormElement =
   | "checkbox"
   | "textarea"
   | "datepicker"
-  | "daterangepicker";
+  | "daterangepicker"
+  | "list";
 
 export type ElementConfig = {
   id?: string;
@@ -33,6 +34,6 @@ export const defaultElementConfig = (
 export type FormElementProps = {
   name: string;
   label: string;
-  description: string;
+  description?: string;
   extraConfig?: Record<string, unknown>;
 };
