@@ -31,7 +31,10 @@ import {
   CheckboxFormElement,
   generateCheckboxFormElement,
 } from "./checkbox-element";
-import { CheckboxListFormElement } from "./checkbox-list";
+import {
+  CheckboxListFormElement,
+  generateCheckboxListFormElement,
+} from "./checkbox-list";
 import {
   DatePickerFormElement,
   generateDatePickerFormElement,
@@ -76,9 +79,7 @@ export const generatorMappings: Record<
   list: () => ({
     componentCode: "",
   }),
-  checkboxlist: () => ({
-    componentCode: "",
-  }),
+  checkboxlist: generateCheckboxListFormElement,
 };
 
 export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {

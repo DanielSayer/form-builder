@@ -69,8 +69,15 @@ export function generateCheckboxListFormElement({
   name,
   label,
   description,
+  extraConfig,
 }: FormElementProps) {
-  return `
+  const typedConfig = extraConfig as Partial<CheckboxListFieldsConfig>;
+
+  const hoistedVariables = [
+    `const ${name}Options = ${JSON.stringify(typedConfig.options ?? [], null, 2)}`,
+  ];
+
+  const componentCode = `
         <FormField
           name="${name}"
           defaultValue={[]}
@@ -115,4 +122,6 @@ export function generateCheckboxListFormElement({
           )}
         />
   `.trim();
+
+  return { hoistedVariables, componentCode };
 }
