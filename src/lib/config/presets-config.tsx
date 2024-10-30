@@ -5,6 +5,7 @@ import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FormElement } from "../element-config";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -91,5 +92,22 @@ export const displayElements: FormElementDisplay[] = [
       ],
       placeholder: "Select an option",
     },
+  },
+  {
+    formElement: "checkbox",
+    id: "checkbox",
+    title: "Checkbox",
+    description: "A single checkbox",
+    render: (props) => (
+      <div className="flex items-center space-x-2">
+        <Checkbox id={props.id} />
+        <label
+          htmlFor={props.id}
+          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Accept terms and conditions
+        </label>
+      </div>
+    ),
   },
 ];

@@ -1,7 +1,10 @@
 import { FormElement, FormElementProps } from "@/lib/element-config";
 import { generateInputFormElement, InputFormElement } from "./input-element";
 import { generateSelectFormElement, SelectFormElement } from "./select-element";
-import { CheckboxFormElement } from "./checkbox-element";
+import {
+  CheckboxFormElement,
+  generateCheckboxFormElement,
+} from "./checkbox-element";
 import {
   inputConfig,
   inputDetailedConfigDefaults,
@@ -35,6 +38,10 @@ import {
   selectDetailedConfigDefaults,
 } from "@/lib/config/form-elements/select";
 import { ListFormElement } from "./list-element";
+import {
+  checkboxConfig,
+  checkboxDetailedConfigDefaults,
+} from "@/lib/config/form-elements/checkbox";
 
 export const templateMappings: Record<
   FormElement,
@@ -55,7 +62,7 @@ export const generatorMappings: Record<
 > = {
   input: generateInputFormElement,
   select: generateSelectFormElement,
-  checkbox: () => "",
+  checkbox: generateCheckboxFormElement,
   textarea: generateTextAreaFormElement,
   datepicker: generateDatePickerFormElement,
   daterangepicker: generateDateRangePickerFormElement,
@@ -65,7 +72,7 @@ export const generatorMappings: Record<
 export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
   input: inputDetailedConfigDefaults,
   select: selectDetailedConfigDefaults,
-  checkbox: {},
+  checkbox: checkboxDetailedConfigDefaults,
   textarea: textAreaDetailedConfigDefaults,
   datepicker: datePickerDetailedConfigDefaults,
   daterangepicker: dateRangePickerDetailedConfigDefaults,
@@ -82,7 +89,7 @@ type Config = {
 export const extraConfigMappings: Record<FormElement, Config[]> = {
   input: inputConfig,
   select: selectConfig,
-  checkbox: [],
+  checkbox: checkboxConfig,
   textarea: textAreaConfig,
   datepicker: datePickerConfig,
   daterangepicker: dateRangePickerConfig,
