@@ -1,4 +1,3 @@
-import { spreadExtraConfig } from "@/lib/code-gen";
 import { TextAreaExtraFieldsConfig } from "@/lib/config/form-elements/textarea";
 import { FormElementProps } from "@/lib/element-config";
 import {
@@ -10,6 +9,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Textarea } from "../ui/textarea";
+import { spreadExtraConfig } from "@/lib/code-gen/utils";
 
 export function TextAreaFormElement({
   name,

@@ -9,7 +9,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { CheckboxExtraFieldsConfig } from "@/lib/config/form-elements/checkbox";
-import { spreadExtraConfig } from "@/lib/code-gen";
+import { spreadExtraConfig } from "@/lib/code-gen/utils";
 
 export const CheckboxFormElement = ({
   name,

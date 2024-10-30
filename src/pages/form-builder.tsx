@@ -5,7 +5,7 @@ import { Preview } from "@/components/preview";
 import { useFormBuilder } from "@/components/providers/form-builder";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { generateForm } from "@/lib/code-gen";
+import { generateForm } from "@/lib/code-gen/form";
 import {
   closestCenter,
   DndContext,

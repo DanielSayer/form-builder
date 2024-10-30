@@ -1,4 +1,3 @@
-import { spreadExtraConfig } from "@/lib/code-gen";
 import { InputExtraFieldsConfig } from "@/lib/config/form-elements/input";
 import { FormElementProps } from "@/lib/element-config";
 import { parseValue } from "@/lib/utils";
@@ -11,6 +10,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { spreadExtraConfig } from "@/lib/code-gen/utils";
 
 export function InputFormElement({
   name,

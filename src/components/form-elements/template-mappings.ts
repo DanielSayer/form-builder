@@ -50,7 +50,7 @@ import {
   generateTextAreaFormElement,
   TextAreaFormElement,
 } from "./textarea-element";
-import { GeneratedCode } from "@/lib/code-gen";
+import { GeneratedCode } from "@/lib/code-gen/form";
 
 export const templateMappings: Record<
   FormElement,
