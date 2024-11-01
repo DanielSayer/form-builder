@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FormElement } from "../element-config";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -144,5 +145,19 @@ export const displayElements: FormElementDisplay[] = [
         { value: "3", label: "Option 3" },
       ],
     },
+  },
+  {
+    formElement: "switch",
+    id: "switch",
+    title: "Switch",
+    description: "A single switch",
+    render: (props) => (
+      <div className="flex items-center space-x-2">
+        <Switch id={props.id} />
+        <label htmlFor={props.id} className="text-sm font-medium leading-none">
+          Marketing Emails
+        </label>
+      </div>
+    ),
   },
 ];

@@ -6,6 +6,7 @@ export type FormElement =
   | "textarea"
   | "datepicker"
   | "daterangepicker"
+  | "switch"
   | "list";
 
 export type ElementConfig = {

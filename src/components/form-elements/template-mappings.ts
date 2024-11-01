@@ -51,6 +51,11 @@ import {
   TextAreaFormElement,
 } from "./textarea-element";
 import { GeneratedCode } from "@/lib/code-gen/form";
+import { generateSwitchFormElement, SwitchFormElement } from "./switch-element";
+import {
+  switchConfig,
+  switchDetailedConfigDefaults,
+} from "@/lib/config/form-elements/switch";
 
 export const templateMappings: Record<
   FormElement,
@@ -64,6 +69,7 @@ export const templateMappings: Record<
   daterangepicker: DateRangePickerFormElement,
   list: ListFormElement,
   checkboxlist: CheckboxListFormElement,
+  switch: SwitchFormElement,
 };
 
 export const generatorMappings: Record<
@@ -80,6 +86,7 @@ export const generatorMappings: Record<
     componentCode: "",
   }),
   checkboxlist: generateCheckboxListFormElement,
+  switch: generateSwitchFormElement,
 };
 
 export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
@@ -91,6 +98,7 @@ export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
   daterangepicker: dateRangePickerDetailedConfigDefaults,
   list: {},
   checkboxlist: checkboxListDetailedConfigDefaults,
+  switch: switchDetailedConfigDefaults,
 };
 
 type Config = {
@@ -109,4 +117,5 @@ export const extraConfigMappings: Record<FormElement, Config[]> = {
   daterangepicker: dateRangePickerConfig,
   list: [],
   checkboxlist: checkboxListConfig,
+  switch: switchConfig,
 };
