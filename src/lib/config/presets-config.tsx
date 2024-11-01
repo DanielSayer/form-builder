@@ -1,12 +1,12 @@
 import { DisplayProps } from "@/components/display";
-import { SelectDisplayElement } from "@/components/form-elements/select-element";
+import { Select } from "@/components/exported-components/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { DatePicker } from "@/components/ui/date-picker";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { FormElement } from "../element-config";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Switch } from "@/components/ui/switch";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -82,9 +82,7 @@ export const displayElements: FormElementDisplay[] = [
     id: "select",
     title: "Select",
     description: "A select field",
-    render: (props) => (
-      <SelectDisplayElement id={props.id} {...props.defaults} />
-    ),
+    render: (props) => <Select id={props.id} {...props.defaults} />,
     defaults: {
       options: [
         { value: "1", label: "Option 1" },

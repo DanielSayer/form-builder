@@ -1,3 +1,5 @@
+import { SelectExtraFieldsConfig } from "@/lib/config/form-elements/select";
+import { FormElementProps } from "@/lib/element-config";
 import {
   FormControl,
   FormDescription,
@@ -6,45 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { FormElementProps } from "@/lib/element-config";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { SelectExtraFieldsConfig } from "@/lib/config/form-elements/select";
-
-type SelectDisplayElementProps = {
-  id: string;
-  placeholder?: string;
-  options?: {
-    value: string;
-    label: string;
-  }[];
-};
-
-export const SelectDisplayElement = ({
-  id,
-  options,
-  placeholder,
-}: SelectDisplayElementProps) => {
-  return (
-    <Select>
-      <SelectTrigger id={id}>
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {options?.map((option) => (
-          <SelectItem value={option.value} key={option.value}>
-            {option.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
-};
+import { Select } from "../exported-components/select";
 
 export const SelectFormElement = ({
   name,
@@ -60,20 +24,15 @@ export const SelectFormElement = ({
       render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
-            <FormControl>
-              <SelectTrigger>
-                <SelectValue placeholder={typedConfig.placeholder} />
-              </SelectTrigger>
-            </FormControl>
-            <SelectContent>
-              {typedConfig.options?.map((option) => (
-                <SelectItem value={option.value} key={option.value}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <FormControl>
+            <Select
+              id={name}
+              options={typedConfig.options}
+              placeholder={typedConfig.placeholder}
+              defaultValue={field.value}
+              onChange={field.onChange}
+            />
+          </FormControl>
           <FormDescription>{description}</FormDescription>
           <FormMessage />
         </FormItem>
