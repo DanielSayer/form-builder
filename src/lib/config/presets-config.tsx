@@ -1,12 +1,13 @@
 import { DisplayProps } from "@/components/display";
 import { Select } from "@/components/exported-components/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DatePicker } from "@/components/ui/date-picker";
-import { DateRangePicker } from "@/components/ui/date-range-picker";
+import { DatePicker } from "@/components/exported-components/date-picker";
+import { DateRangePicker } from "@/components/exported-components/date-range-picker";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { FormElement } from "../element-config";
+import { Combobox } from "@/components/exported-components/combobox";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -157,5 +158,21 @@ export const displayElements: FormElementDisplay[] = [
         </label>
       </div>
     ),
+  },
+  {
+    formElement: "combobox",
+    id: "combobox",
+    title: "Combobox",
+    description: "A combobox",
+    render: (props) => <Combobox id={props.id} {...props.defaults} />,
+    defaults: {
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+        { value: "3", label: "Option 3" },
+      ],
+      placeholder: "Select an option",
+      emptyPlaceholder: "No results.",
+    },
   },
 ];

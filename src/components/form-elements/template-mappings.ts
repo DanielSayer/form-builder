@@ -56,6 +56,14 @@ import {
   switchConfig,
   switchDetailedConfigDefaults,
 } from "@/lib/config/form-elements/switch";
+import {
+  ComboboxFormElement,
+  generateComboboxFormElement,
+} from "./combobox-element";
+import {
+  comboboxConfig,
+  comboboxDetailedConfigDefaults,
+} from "@/lib/config/form-elements/combobox";
 
 export const templateMappings: Record<
   FormElement,
@@ -70,6 +78,7 @@ export const templateMappings: Record<
   list: ListFormElement,
   checkboxlist: CheckboxListFormElement,
   switch: SwitchFormElement,
+  combobox: ComboboxFormElement,
 };
 
 export const generatorMappings: Record<
@@ -87,6 +96,7 @@ export const generatorMappings: Record<
   }),
   checkboxlist: generateCheckboxListFormElement,
   switch: generateSwitchFormElement,
+  combobox: generateComboboxFormElement,
 };
 
 export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
@@ -99,6 +109,7 @@ export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
   list: {},
   checkboxlist: checkboxListDetailedConfigDefaults,
   switch: switchDetailedConfigDefaults,
+  combobox: comboboxDetailedConfigDefaults,
 };
 
 type Config = {
@@ -118,4 +129,5 @@ export const extraConfigMappings: Record<FormElement, Config[]> = {
   list: [],
   checkboxlist: checkboxListConfig,
   switch: switchConfig,
+  combobox: comboboxConfig,
 };

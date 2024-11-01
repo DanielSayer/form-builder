@@ -7,6 +7,7 @@ export type FormElement =
   | "datepicker"
   | "daterangepicker"
   | "switch"
+  | "combobox"
   | "list";
 
 export type ElementConfig = {
