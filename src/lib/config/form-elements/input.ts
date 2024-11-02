@@ -1,7 +1,7 @@
 import { FormElementDetailedConfig } from "./config";
 
 export type InputExtraFieldsConfig = {
-  type: "number" | "text" | "email" | "password" | "date" | "time";
+  type: "number" | "text" | "email" | "password" | "date" | "time" | "color";
   disabled: boolean;
   max: number;
   maxLength: number;
@@ -54,6 +54,10 @@ export const inputConfig: FormElementDetailedConfig<InputExtraFieldsConfig>[] =
         {
           value: "time",
           label: "time",
+        },
+        {
+          value: "color",
+          label: "color",
         },
       ],
     },

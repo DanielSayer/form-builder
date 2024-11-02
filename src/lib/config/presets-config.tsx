@@ -56,6 +56,14 @@ export const displayElements: FormElementDisplay[] = [
     defaults: { type: "time" },
   },
   {
+    formElement: "input",
+    id: "color-input",
+    title: "Color Input",
+    description: "A basic color input field",
+    render: (props) => <Input id={props.id} {...props.defaults} />,
+    defaults: { type: "color" },
+  },
+  {
     formElement: "textarea",
     id: "textarea",
     title: "Text Area",
