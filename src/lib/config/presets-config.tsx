@@ -8,6 +8,8 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { FormElement } from "../element-config";
 import { Combobox } from "@/components/exported-components/combobox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 type FormElementDisplay = DisplayProps & {
   formElement: FormElement;
@@ -173,6 +175,31 @@ export const displayElements: FormElementDisplay[] = [
       ],
       placeholder: "Select an option",
       emptyPlaceholder: "No results.",
+    },
+  },
+  {
+    formElement: "radiogroup",
+    id: "radiogroup",
+    title: "Radio Group",
+    description: "A radio group",
+    render: (props) => (
+      <RadioGroup defaultValue="comfortable" id={props.id}>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="default" id="r1" />
+          <Label htmlFor="r1">Default</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="comfortable" id="r2" />
+          <Label htmlFor="r2">Comfortable</Label>
+        </div>
+      </RadioGroup>
+    ),
+    defaults: {
+      options: [
+        { value: "1", label: "Option 1" },
+        { value: "2", label: "Option 2" },
+        { value: "3", label: "Option 3" },
+      ],
     },
   },
 ];

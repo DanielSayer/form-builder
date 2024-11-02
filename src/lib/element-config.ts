@@ -8,6 +8,7 @@ export type FormElement =
   | "daterangepicker"
   | "switch"
   | "combobox"
+  | "radiogroup"
   | "list";
 
 export type ElementConfig = {

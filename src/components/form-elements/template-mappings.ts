@@ -64,6 +64,14 @@ import {
   comboboxConfig,
   comboboxDetailedConfigDefaults,
 } from "@/lib/config/form-elements/combobox";
+import {
+  generateRadioGroupFormElement,
+  RadioGroupFormElement,
+} from "./radio-group-element";
+import {
+  radioGroupConfig,
+  radioGroupDetailedConfigDefaults,
+} from "@/lib/config/form-elements/radio-group";
 
 export const templateMappings: Record<
   FormElement,
@@ -79,6 +87,7 @@ export const templateMappings: Record<
   checkboxlist: CheckboxListFormElement,
   switch: SwitchFormElement,
   combobox: ComboboxFormElement,
+  radiogroup: RadioGroupFormElement,
 };
 
 export const generatorMappings: Record<
@@ -97,6 +106,7 @@ export const generatorMappings: Record<
   checkboxlist: generateCheckboxListFormElement,
   switch: generateSwitchFormElement,
   combobox: generateComboboxFormElement,
+  radiogroup: generateRadioGroupFormElement,
 };
 
 export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
@@ -110,6 +120,7 @@ export const detailedConfigDefaultMappings: Record<FormElement, unknown> = {
   checkboxlist: checkboxListDetailedConfigDefaults,
   switch: switchDetailedConfigDefaults,
   combobox: comboboxDetailedConfigDefaults,
+  radiogroup: radioGroupDetailedConfigDefaults,
 };
 
 type Config = {
@@ -130,4 +141,5 @@ export const extraConfigMappings: Record<FormElement, Config[]> = {
   checkboxlist: checkboxListConfig,
   switch: switchConfig,
   combobox: comboboxConfig,
+  radiogroup: radioGroupConfig,
 };
