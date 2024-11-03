@@ -9,6 +9,8 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Select } from "../exported-components/select";
+import { getSetting } from "@/server/settings/settings";
+import { settings } from "@/lib/settings";
 
 export const SelectFormElement = ({
   name,
@@ -47,7 +49,54 @@ export function generateSelectFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
+  const isEnabled = getSetting(settings.CUSTOM_SELECT);
   const typedConfig = extraConfig as Partial<SelectExtraFieldsConfig>;
+
+  if (isEnabled) {
+    const hoistedVariables = [
+      `const ${name}Options = ${JSON.stringify(typedConfig.options ?? [], null, 2)}`,
+    ];
+
+    const imports = [
+      {
+        from: "@/components/ui/form",
+        imports: [
+          "FormControl",
+          description ? "FormDescription" : "",
+          "FormField",
+          "FormItem",
+          "FormLabel",
+          "FormMessage",
+        ],
+      },
+      {
+        from: "@/components/select",
+        imports: ["Select"],
+      },
+    ];
+
+    const componentCode = `
+  <FormField
+            name="${name}"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>${label}</FormLabel>
+                <Select
+                  id={name}
+                  options={${name}Options}
+                  ${typedConfig.placeholder ? `placeholder="${typedConfig.placeholder}"` : ``}
+                  defaultValue={field.value}
+                  onChange={field.onChange}
+                />
+                ${description ? `<FormDescription>${description}</FormDescription>` : ``}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+    `;
+
+    return { imports, componentCode, hoistedVariables };
+  }
 
   const imports = [
     {

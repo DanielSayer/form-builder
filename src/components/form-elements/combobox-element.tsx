@@ -9,6 +9,8 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { getSetting } from "@/server/settings/settings";
+import { settings } from "@/lib/settings";
 
 export function ComboboxFormElement({
   name,
@@ -46,11 +48,55 @@ export const generateComboboxFormElement = ({
   description,
   extraConfig,
 }: FormElementProps) => {
+  const isEnabled = getSetting(settings.CUSTOM_COMBOBOX);
   const typedConfig = extraConfig as Partial<ComboboxExtraFieldsConfig>;
 
   const hoistedVariables = [
     `const ${name}Options = ${JSON.stringify(typedConfig.options ?? [], null, 2)}`,
   ];
+
+  if (isEnabled) {
+    const imports = [
+      {
+        from: "@/components/ui/form",
+        imports: [
+          "FormControl",
+          description ? "FormDescription" : "",
+          "FormField",
+          "FormItem",
+          "FormLabel",
+          "FormMessage",
+        ],
+      },
+      {
+        from: "@/components/combobox",
+        imports: ["Combobox"],
+      },
+    ];
+
+    const componentCode = `
+<FormField
+            name="${name}"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>${label}</FormLabel>
+                <Combobox
+                  id={name}
+                  value={field.value}
+                  onChange={field.onChange}
+                  options={${name}Options}
+                  ${typedConfig.placeholder ? `placeholder="${typedConfig.placeholder}"` : ``}
+                  ${typedConfig.emptyPlaceholder ? `emptyPlaceholder="${typedConfig.emptyPlaceholder}"` : ``}
+                />
+                ${description ? `<FormDescription>${description}</FormDescription>` : ``}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+    `;
+
+    return { imports, componentCode, hoistedVariables };
+  }
 
   const imports = [
     {

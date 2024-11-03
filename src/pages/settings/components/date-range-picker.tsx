@@ -24,8 +24,8 @@ export const DateRangePicker = () => {
         >
           <p>Use custom date range picker component</p>
           <p className="font-normal text-muted-foreground">
-            An implementation of shadcn/ui's date range picker component using a
-            Popover and the Calendar
+            An implementation of shadcn/ui's date range variant using a Popover
+            and the Calendar
           </p>
         </Label>
       </div>

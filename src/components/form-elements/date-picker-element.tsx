@@ -9,6 +9,8 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { settings } from "@/lib/settings";
+import { getSetting } from "@/server/settings/settings";
 
 export function DatePickerFormElement({
   name,
@@ -47,7 +49,50 @@ export function generateDatePickerFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
+  const isEnabled = getSetting(settings.CUSTOM_DATE_PICKER);
   const typedConfig = (extraConfig ?? {}) as DatePickerExtraFieldsConfig;
+
+  if (isEnabled) {
+    const imports = [
+      {
+        from: "@/components/ui/form",
+        imports: [
+          "FormControl",
+          description ? "FormDescription" : "",
+          "FormField",
+          "FormItem",
+          "FormLabel",
+          "FormMessage",
+        ],
+      },
+      {
+        from: "@/components/date-picker",
+        imports: ["DatePicker"],
+      },
+    ];
+
+    const componentCode = `
+<FormField
+            name="${name}"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>${label}</FormLabel>
+                <DatePicker
+                  id={name}
+                  value={field.value}
+                  ${typedConfig.placeholder ? `placeholder="${typedConfig.placeholder}"` : ``}
+                  ${typedConfig.disabled ? `disabled` : ``}
+                  onChange={field.onChange}
+                />
+                ${description ? `<FormDescription>${description}</FormDescription>` : ``}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+    `;
+
+    return { imports, componentCode };
+  }
 
   const imports = [
     {

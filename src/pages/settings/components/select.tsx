@@ -18,6 +18,9 @@ export const Select = () => {
         />
         <Label htmlFor="use-custom-select" className="space-y-1 leading-none">
           <p>Use custom select component</p>
+          <p className="font-normal text-muted-foreground">
+            A light wrapper around shadcn/ui's select component
+          </p>
         </Label>
       </div>
       <ExternalComponentViewer

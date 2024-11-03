@@ -9,6 +9,8 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { getSetting } from "@/server/settings/settings";
+import { settings } from "@/lib/settings";
 
 export function DateRangePickerFormElement({
   name,
@@ -47,7 +49,50 @@ export function generateDateRangePickerFormElement({
   description,
   extraConfig,
 }: FormElementProps) {
+  const isEnabled = getSetting(settings.CUSTOM_DATE_RANGE_PICKER);
   const typedConfig = (extraConfig ?? {}) as DateRangePickerExtraFieldsConfig;
+
+  if (isEnabled) {
+    const imports = [
+      {
+        from: "@/components/ui/form",
+        imports: [
+          "FormControl",
+          description ? "FormDescription" : "",
+          "FormField",
+          "FormItem",
+          "FormLabel",
+          "FormMessage",
+        ],
+      },
+      {
+        from: "@/components/date-range-picker",
+        imports: ["DateRangePicker"],
+      },
+    ];
+
+    const componentCode = `
+<FormField
+            name="${name}"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>${label}</FormLabel>
+                <DateRangePicker
+                  id={name}
+                  value={field.value}
+                  ${typedConfig.placeholder ? `placeholder="${typedConfig.placeholder}"` : ``}
+                  ${typedConfig.disabled ? `disabled` : ``}
+                  onChange={field.onChange}
+                />
+                ${description ? `<FormDescription>${description}</FormDescription>` : ``}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+    `;
+
+    return { imports, componentCode };
+  }
 
   const imports = [
     {
