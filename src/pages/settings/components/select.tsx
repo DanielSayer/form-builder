@@ -3,9 +3,10 @@ import { Label } from "@/components/ui/label";
 import { ExternalComponentViewer } from "./external-component-viewer";
 import { EXPORTED_SELECT_CODE } from "@/components/exported-components/select";
 import { useSetting } from "./useSetting";
+import { settings } from "@/lib/settings";
 
 export const Select = () => {
-  const [select, setSelect] = useSetting("use-custom-select");
+  const [select, setSelect] = useSetting(settings.CUSTOM_SELECT);
 
   return (
     <div className="flex items-center justify-between space-y-0 rounded-md border p-4">

@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { Select } from "./select";
+import { Combobox } from "./combobox";
 
 export function ComponentsPage() {
   return (
@@ -15,6 +16,7 @@ export function ComponentsPage() {
       <Separator className="my-6" />
       <div className="space-y-4">
         <Select />
+        <Combobox />
       </div>
     </div>
   );

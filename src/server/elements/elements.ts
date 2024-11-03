@@ -1,6 +1,6 @@
 import { ElementConfig } from "@/lib/element-config";
 
-const FORM_ELEMENTS_KEY = "formElements";
+const FORM_ELEMENTS_KEY = "form-builder-elements";
 
 export const getElements = (): ElementConfig[] => {
   const storedElements = localStorage.getItem(FORM_ELEMENTS_KEY);
