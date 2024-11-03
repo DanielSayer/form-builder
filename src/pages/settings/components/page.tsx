@@ -1,6 +1,8 @@
 import { Separator } from "@/components/ui/separator";
 import { Select } from "./select";
 import { Combobox } from "./combobox";
+import { DatePicker } from "./date-picker";
+import { DateRangePicker } from "./date-range-picker";
 
 export function ComponentsPage() {
   return (
@@ -17,6 +19,8 @@ export function ComponentsPage() {
       <div className="space-y-4">
         <Select />
         <Combobox />
+        <DatePicker />
+        <DateRangePicker />
       </div>
     </div>
   );
