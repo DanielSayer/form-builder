@@ -9,8 +9,8 @@ const sidebarNavItems = [
     to: "/examples/forms",
   },
   {
-    title: "Account",
-    to: "/examples/forms/account",
+    title: "Components",
+    to: "/settings/components",
   },
   {
     title: "Appearance",
@@ -41,7 +41,7 @@ export default function SettingsLayout() {
           <aside className="-mx-4 lg:w-1/5">
             <SidebarNav items={sidebarNavItems} />
           </aside>
-          <div className="flex-1 lg:max-w-2xl">
+          <div className="flex-1">
             <Outlet />
           </div>
         </div>
