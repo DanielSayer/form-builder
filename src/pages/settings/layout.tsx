@@ -5,8 +5,8 @@ import { Outlet } from "react-router-dom";
 
 const sidebarNavItems = [
   {
-    title: "Profile",
-    to: "/examples/forms",
+    title: "Just settings",
+    to: "/settings",
   },
   {
     title: "Components",
@@ -14,7 +14,7 @@ const sidebarNavItems = [
   },
   {
     title: "Appearance",
-    to: "/examples/forms/appearance",
+    to: "/settings/appearance",
   },
   {
     title: "Notifications",

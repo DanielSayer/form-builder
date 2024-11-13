@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { MaxWidthWrapper } from "./max-width-wrapper";
-import { ModeToggle } from "./mode-toggle";
 import { buttonVariants } from "./ui/button";
 import { Settings } from "lucide-react";
 
@@ -20,7 +19,6 @@ export const Navbar = () => {
             >
               Settings <Settings className="ml-2 h-4 w-4" />
             </Link>
-            <ModeToggle />
           </div>
         </div>
       </MaxWidthWrapper>
